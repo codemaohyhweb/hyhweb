@@ -38,6 +38,9 @@
     vertical-align: middle;
     margin-left: 4px;
 }
+.c-post_list--post_container .c-post_list--post_header span:hover{
+    color: #409EFF;
+}
 .c-post_list--post_container .c-post_list--post_title {
     display: -webkit-box;
     display: -webkit-flex;

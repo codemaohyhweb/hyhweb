@@ -6,19 +6,21 @@
           <div style="padding:10px">全部帖子（{{posts.total}}）</div>
           <el-row>
             <el-col v-for="(post,item) in posts.items" :key="item">
-              <router-link class="forum_to" :to="'/post/'+post.id">
-                <li class="c-post_list--post_body">
-                  <div class="c-post_list--post_container">
+              <li class="c-post_list--post_body">
+                <div class="c-post_list--post_container">
+                  <a :href="'https://shequ.codemao.cn/user/'+post.user.id" target="_blank">
                     <div class="c-post_list--post_header">
                       <img :src="post.user.avatar_url" alt="头像" class="c-post_list--pointer" />
                       <span class="c-post_list--pointer">{{post.user.nickname}}</span>
                     </div>
+                  </a>
+                  <router-link class="forum_to" :to="'/post/'+post.id">
                     <div class="c-post_list--post_title">
                       <h3 class="c-post_list--pointer">{{post.title}}</h3>
                     </div>
-                  </div>
-                </li>
-              </router-link>
+                  </router-link>
+                </div>
+              </li>
             </el-col>
           </el-row>
           <el-row style="padding:10px 0" type="flex" justify="center">
@@ -43,19 +45,21 @@
           </div>
           <el-row>
             <el-col v-for="(post,item) in s_posts.items" :key="item">
-              <router-link class="forum_to" :to="'/post/'+post.id">
-                <li class="c-post_list--post_body">
-                  <div class="c-post_list--post_container">
+              <li class="c-post_list--post_body">
+                <div class="c-post_list--post_container">
+                  <a :href="'https://shequ.codemao.cn/user/'+post.user.id" target="_blank">
                     <div class="c-post_list--post_header">
                       <img :src="post.user.avatar_url" alt="头像" class="c-post_list--pointer" />
                       <span class="c-post_list--pointer">{{post.user.nickname}}</span>
                     </div>
+                  </a>
+                  <router-link class="forum_to" :to="'/post/'+post.id">
                     <div class="c-post_list--post_title">
                       <h3 class="c-post_list--pointer">{{post.title}}</h3>
                     </div>
-                  </div>
-                </li>
-              </router-link>
+                  </router-link>
+                </div>
+              </li>
             </el-col>
           </el-row>
           <el-row style="padding:10px 0" type="flex" justify="center">
@@ -63,6 +67,7 @@
               <el-pagination
                 :page-size="20"
                 style="text-align: center;"
+                @current-change="stopost"
                 background
                 layout="prev, pager, next"
                 :total="s_posts.total"
@@ -85,11 +90,18 @@
         </div>
       </el-col>
     </el-row>
+    <el-dialog title="发帖" :close-on-click-modal="false" :visible.sync="write_box" width="50%">
+      <write/>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import write from '../components/wirtepost'
 export default {
+  components:{
+    write
+  },
   data() {
     return {
       index: 0,
@@ -97,6 +109,7 @@ export default {
       s_posts: { offset: -20 },
       search_text: "",
       loading: true,
+      write_box:false
     };
   },
   methods: {
@@ -104,7 +117,7 @@ export default {
       this.$axios({
         method: "GET",
         url:
-          "/api/web/works/subjects/labels/1053/posts?keyword=" +
+          "/codemaoapi/web/works/subjects/labels/1053/posts?keyword=" +
           this.search_text +
           "&limit=20&offset=" +
           (p - 1) * 20,
@@ -123,7 +136,7 @@ export default {
       this.$axios({
         method: "GET",
         url:
-          "/api/web/works/subjects/labels/1053/posts?limit=20&offset=" +
+          "/codemaoapi/web/works/subjects/labels/1053/posts?limit=20&offset=" +
           (p - 1) * 20,
       })
         .then((response) => {
@@ -139,15 +152,11 @@ export default {
     topost(currentPage) {
       this.getpost(currentPage);
     },
+    stopost(currentPage) {
+      this.search(currentPage);
+    },
     write() {
-      this.$confirm("是否要跳转至编程猫发布？", "该功能暂时还未能使用", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          window.open("https://shequ.codemao.cn/work_shop/856")
-        })
+      this.write_box=true
     },
   },
   created() {

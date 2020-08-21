@@ -6,13 +6,26 @@ module.exports = {
         hot: true, // 开启热更新
         https: false, // 是否开启https模式
         proxy: { // 请求代理服务器
-            '/api': { //带上api前缀的
+            '/codemaoapi': { //带上api前缀的
                 target: 'https://api.codemao.cn/', //代理目标地址
                 changeOrigin: true,
                 pathRewrite: { // 在发出请求后将/api替换为''空值，这样不影响接口请求
-                    '^/api': ''
+                    '^/codemaoapi': ''
+                },
+                onProxyReq: proxyReq => {
+                    // 接口设置了域名限制，所以要改掉origin来符合后端的域名限制的判断
+                    if (proxyReq.getHeader('origin')) {
+                        proxyReq.setHeader('origin', 'https://shequ.codemao.cn/');
+                    }
+                }
+            },
+            '/baklibapi': { //带上api前缀的
+                target: 'https://www.baklib.com/api/v1/', //代理目标地址
+                changeOrigin: true,
+                pathRewrite: { // 在发出请求后将/api替换为''空值，这样不影响接口请求
+                    '^/baklibapi': ''
                 }
             }
-        }
+        },
     },
 }

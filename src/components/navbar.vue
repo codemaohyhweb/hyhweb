@@ -7,26 +7,32 @@
           <div class="logo"></div>
         </el-menu-item>
         <el-menu-item v-for="(n,index) in navbar" :key="index" :index="n.path">{{n.text}}</el-menu-item>
-        <!-- <el-menu-item class="right" v-if="!user.userName" index="/login">登录/注册</el-menu-item>
-        <el-submenu class="right" v-if="user.userName" index="/user">
+        <el-menu-item class="right" v-if="!user.id">
+          <a @click="sign_box=true;sign_name='in'">登录</a>
+        </el-menu-item>
+        <el-submenu index="/" class="right" v-if="user.id">
           <template slot="title">
-            <el-avatar :size="30" :src="user.avatarUrl"></el-avatar>
+            <el-avatar :size="30" :src="user.avatar_url" />
           </template>
-          <el-menu-item :index="'/user/' + user.userId">我的主页</el-menu-item>
-          <el-divider class="nav-divider"></el-divider>
-          <el-menu-item index="/new">新建项目</el-menu-item>
-          <el-divider class="nav-divider"></el-divider>
-          <el-menu-item index="/profile">设置</el-menu-item>
-          <el-menu-item index="/help">帮助</el-menu-item>
-          <el-divider class="nav-divider"></el-divider>
-          <el-menu-item @click="sign_out">退出登录</el-menu-item>
-        </el-submenu>-->
+          <el-menu-item @click="sign_out()">退出登录</el-menu-item>
+        </el-submenu>
       </el-menu>
     </div>
+    <el-dialog :close-on-click-modal="false" :visible.sync="sign_box" width="30%">
+      <el-tabs v-model="sign_name">
+        <el-tab-pane label="登录" name="in">
+          <signin />
+        </el-tab-pane>
+      </el-tabs>
+    </el-dialog>
   </div>
 </template>
 <script>
+import signin from "./sign/signin";
 export default {
+  components: {
+    signin,
+  },
   data() {
     return {
       activeIndex: this.$route.path,
@@ -41,6 +47,10 @@ export default {
           text: "成员",
         },
         {
+          path: "/blog",
+          text: "博客",
+        },
+        {
           path: "/forum",
           text: "论坛",
         },
@@ -49,6 +59,9 @@ export default {
           text: "教程",
         },
       ],
+      user: this.$store.state.user,
+      sign_box: false,
+      sign_name: "in",
     };
   },
   mounted() {
@@ -58,31 +71,19 @@ export default {
     s() {
       this.navbarS = document.documentElement.scrollTop;
     },
-  },
-  watch: {
-    "$route.path": function () {
-      this.activeIndex = this.$route.path;
-      var s = false;
-      for (var i = 0; i < this.navbar.length; i++) {
-        if (this.navbar[i].path == this.$route.path) {
-          s = true;
-        }
-      }
-      if (!s) {
-        this.$router.push("/");
-        this.$message({
-          showClose: true,
-          type:"error",
-          message: "该网页走丢了，已为您跳转首页~",
-        });
-      }
+    sign_out() {
+      this.$store.state.user = {};
+      this.$store.commit("signout");
     },
   },
-  //   computed: {
-  //     user() {
-  //       return this.$store.state.user;
-  //     }
-  //   }
+  watch: {
+    "$store.state.user": function () {
+      this.user = this.$store.state.user;
+    },
+  },
+  created() {
+    this.$store.commit("getuser");
+  },
 };
 </script>
 <style>

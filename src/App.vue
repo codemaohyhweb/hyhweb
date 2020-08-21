@@ -41,7 +41,7 @@ export default {
 }
 a{
   text-decoration: none;
-  transition: 0.3s;
+  color: initial;
 }
 a:hover{
   color: #409EFF;
