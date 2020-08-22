@@ -48,9 +48,9 @@ const mutations = {
             method: "POST",
             url: "/codemaoapi/web/works/subjects/856/post",
             data: data,
-        }).then(function(){
+        }).then(function () {
             el.Message.success("发布成功")
-        }).catch(function(error){
+        }).catch(function (error) {
             el.Message.error("未知错误")
             console.log(error)
         })

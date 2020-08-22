@@ -2,15 +2,15 @@
   <div class="blog">
     <div class="b-head"></div>
     <div class="b-content">
-      <div class="b-content-l">
+      <div class="b-content-l" v-loading="loading">
         <el-row class="bl-box" v-for="(bl,item) in blogs.items" :key="item">
-          <div @click="toblog(bl.id)">
+          <router-link :to="{name:'blogs',path: '/blogs', query: { id: bl.id, }}">
             <el-col :span="10">
               <el-image
                 v-if="bl.features['guide-leap']"
                 fit="cover"
-                class="bl-img"
-                :src="bl.features['guide-leap']['article.default'].variables.thumbs"
+                class="bl-img bgimg"
+                :style="'background-image:url('+bl.features['guide-leap']['article.default'].variables.thumbs+');'"
               ></el-image>
               <div v-if="!bl.features['guide-leap']" class="bl-img"></div>
             </el-col>
@@ -26,10 +26,11 @@
                 </div>
               </div>
             </el-col>
-          </div>
+          </router-link>
         </el-row>
         <br />
         <el-pagination
+          v-if="blogs.meta"
           :page-size="10"
           style="text-align: center;"
           @current-change="topost"
@@ -59,22 +60,82 @@ export default {
     return {
       blogs: [],
       word: "",
+      total_count: "",
+      loading: true,
     };
   },
   methods: {
     stime(time) {
-      return time.substr(0, 4);
-    },
-    toblog(id) {
-      this.$router.push({
-        name: "blogs",
-        path: "/blogs",
-        params: {
-          id: id,
-        },
-      });
+      Date.prototype.format = function (format) {
+        var o = {
+          "M+": this.getMonth() + 1, //month
+          "d+": this.getDate(), //day
+          "h+": this.getHours(), //hour
+          "m+": this.getMinutes(), //minute
+          "s+": this.getSeconds(), //second
+          "q+": Math.floor((this.getMonth() + 3) / 3), //quarter
+          S: this.getMilliseconds(), //millisecond
+        };
+        if (/(y+)/i.test(format)) {
+          format = format.replace(
+            RegExp.$1,
+            (this.getFullYear() + "").substr(4 - RegExp.$1.length)
+          );
+        }
+        for (var k in o) {
+          if (new RegExp("(" + k + ")").test(format)) {
+            format = format.replace(
+              RegExp.$1,
+              RegExp.$1.length == 1
+                ? o[k]
+                : ("00" + o[k]).substr(("" + o[k]).length)
+            );
+          }
+        }
+        return format;
+      };
+      var t = [
+        time.split("-")[0],
+        time.split("-")[1],
+        time.split("-")[2].split("T")[0],
+        time.split("-")[2].split("T")[1].split(":")[0],
+        time.split("-")[2].split("T")[1].split(":")[1],
+        time.split("-")[2].split("T")[1].split(":")[2].split(".")[0],
+      ];
+      var s = [
+        new Date().format("yyyy"),
+        new Date().format("MM"),
+        new Date().format("dd"),
+        new Date().format("hh"),
+        new Date().format("mm"),
+        new Date().format("ss"),
+      ];
+      var r = "";
+      for (var i = 0; i < t.length; i++) {
+        var q = t[i];
+        var p = s[i];
+        if (p - q > 0) {
+          if (i == 0 || i == 1 || i == 2) {
+            r = t[0] + "-" + t[1] + "-" + t[2];
+            break;
+          } else if (i == 3) {
+            console.log(s)
+            console.log(t)
+            r = s[3] - t[3] + "小时前";
+            break;
+          } else if (i == 4) {
+            r = s[4] - t[4] + "分钟前";
+            break;
+          } else {
+            r = "刚刚";
+            break;
+          }
+        }
+      }
+      return r;
     },
     getblog(page) {
+      this.loading = false;
       var _this = this;
       this.$axios({
         url:
@@ -90,39 +151,64 @@ export default {
         },
       }).then(function (res) {
         _this.blogs = res.data.message;
-        console.log(_this.blogs.items[0]);
+        _this.loading = false;
       });
     },
     topost(currentPage) {
-      this.getblog(currentPage);
+      if (this.word) {
+        this.search(currentPage);
+      } else {
+        this.getblog(currentPage);
+      }
     },
     search(page) {
-      var blo = this.blogs;
-      this.blogs = {};
-      this.blogs.items = [];
-      var current_page = page+1;
-      var total_pages = 0;
-      var total_count = 0;
-      for (var i = 0; i < blo.items.length; i++) {
-        if ((blo.items[i].name.indexOf(this.word))>=0) {
-          total_count++;
-        }
-      }
-      total_pages = Math.ceil(total_count / 10);
-      for (var f = (page-1)*10; f < blo.items.length; f++) {
-        if ((blo.items[f].name.indexOf(this.word))>=0) {
-          this.blogs.items.push(blo.items[f]);
-          if (this.blogs.items.length >= 10) {
-            break;
+      this.loading = false;
+      var _this = this;
+      this.$axios({
+        url:
+          "/baklibapi/articles?_page=0&amp;_per_page=50&amp;channel_id=2a274635-2f52-4030-8386-c474f77d44cb&amp;tenant_id=a5e31530-0273-48ba-985d-3f425ab577c1",
+        method: "GET",
+        timeout: 0,
+        headers: {
+          Authorization:
+            "Bearer 6e2b76bdf1493cbc7db23b57c3dedc75be40d0407230e2f022326ae54ae5adf5",
+          "Content-Type": "application/json",
+        },
+      }).then(function (res) {
+        _this.blogs = res.data.message;
+        var blo = _this.blogs;
+        _this.blogs = {};
+        _this.blogs.items = [];
+        var current_page = page + 1;
+        var total_pages = 0;
+        var total_count = 0;
+        for (var i = 0; i < blo.items.length; i++) {
+          if (
+            blo.items[i].name.indexOf(_this.word) >= 0 ||
+            blo.items[i].content.blocks[0].data.text.indexOf(_this.word) >= 0
+          ) {
+            total_count++;
           }
         }
-      }
-      this.blogs.meta = {
-        "current_page": current_page,
-        "total_pages": total_pages,
-        "total_count": total_count,
-      };
-      console.log(this.blogs)
+        total_pages = Math.ceil(total_count / 10);
+        for (var f = (page - 1) * 10; f < blo.items.length; f++) {
+          if (
+            blo.items[f].name.indexOf(_this.word) >= 0 ||
+            blo.items[f].content.blocks[0].data.text.indexOf(_this.word) >= 0
+          ) {
+            _this.blogs.items.push(blo.items[f]);
+            if (_this.blogs.items.length >= 10) {
+              break;
+            }
+          }
+        }
+        _this.blogs.meta = {
+          current_page: current_page,
+          total_pages: total_pages,
+          total_count: total_count,
+        };
+        _this.loading = false;
+      });
     },
   },
   created() {
@@ -143,7 +229,7 @@ export default {
   display: inline-block;
 }
 .b-content-r {
-  width: 40vw;
+  width: 35vw;
   vertical-align: top;
   display: inline-block;
 }

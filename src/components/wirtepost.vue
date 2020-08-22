@@ -24,11 +24,19 @@ export default {
   },
   methods: {
     post() {
-      var data = {
-        title: this.title,
-        content: this.content,
-      };
-      this.$store.commit("write", data);
+      if (this.title.length < 5 || this.title.length > 50) {
+        this.$message.error("大哥( ఠൠఠ )ﾉ看标题要求（5-50字内）");
+      } else {
+        if (this.content.length <= 20) {
+          this.$message.error("内容太少了~再肝点吧ε=ε=ε=(~￣▽￣)~");
+        } else {
+          var data = {
+            title: this.title,
+            content: this.content,
+          };
+          this.$store.commit("write", data);
+        }
+      }
     },
     change(val) {
       this.content = val;

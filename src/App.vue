@@ -46,4 +46,8 @@ a{
 a:hover{
   color: #409EFF;
 }
+.bgimg{
+  background: center;
+  background-size: cover;
+}
 </style>

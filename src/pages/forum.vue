@@ -8,12 +8,12 @@
             <el-col v-for="(post,item) in posts.items" :key="item">
               <li class="c-post_list--post_body">
                 <div class="c-post_list--post_container">
-                  <a :href="'https://shequ.codemao.cn/user/'+post.user.id" target="_blank">
-                    <div class="c-post_list--post_header">
+                  <div class="c-post_list--post_header">
+                    <a :href="'https://shequ.codemao.cn/user/'+post.user.id" target="_blank">
                       <img :src="post.user.avatar_url" alt="头像" class="c-post_list--pointer" />
                       <span class="c-post_list--pointer">{{post.user.nickname}}</span>
-                    </div>
-                  </a>
+                    </a>
+                  </div>
                   <router-link class="forum_to" :to="'/post/'+post.id">
                     <div class="c-post_list--post_title">
                       <h3 class="c-post_list--pointer">{{post.title}}</h3>
@@ -47,12 +47,12 @@
             <el-col v-for="(post,item) in s_posts.items" :key="item">
               <li class="c-post_list--post_body">
                 <div class="c-post_list--post_container">
-                  <a :href="'https://shequ.codemao.cn/user/'+post.user.id" target="_blank">
-                    <div class="c-post_list--post_header">
+                  <div class="c-post_list--post_header">
+                    <a :href="'https://shequ.codemao.cn/user/'+post.user.id" target="_blank">
                       <img :src="post.user.avatar_url" alt="头像" class="c-post_list--pointer" />
                       <span class="c-post_list--pointer">{{post.user.nickname}}</span>
-                    </div>
-                  </a>
+                    </a>
+                  </div>
                   <router-link class="forum_to" :to="'/post/'+post.id">
                     <div class="c-post_list--post_title">
                       <h3 class="c-post_list--pointer">{{post.title}}</h3>
@@ -91,16 +91,16 @@
       </el-col>
     </el-row>
     <el-dialog title="发帖" :close-on-click-modal="false" :visible.sync="write_box" width="50%">
-      <write/>
+      <write />
     </el-dialog>
   </div>
 </template>
 
 <script>
-import write from '../components/wirtepost'
+import write from "../components/wirtepost";
 export default {
-  components:{
-    write
+  components: {
+    write,
   },
   data() {
     return {
@@ -109,7 +109,7 @@ export default {
       s_posts: { offset: -20 },
       search_text: "",
       loading: true,
-      write_box:false
+      write_box: false,
     };
   },
   methods: {
@@ -156,7 +156,7 @@ export default {
       this.search(currentPage);
     },
     write() {
-      this.write_box=true
+      this.write_box = true;
     },
   },
   created() {
@@ -171,6 +171,6 @@ export default {
   position: relative;
   margin: 30px auto;
   border-radius: 10px;
-  box-shadow: 0 4px 9px rgb(168, 165, 165);
+  box-shadow: 0 10px 33px rgba(9, 16, 43, 0.15);
 }
 </style>

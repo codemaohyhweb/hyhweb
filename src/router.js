@@ -30,10 +30,5 @@ export default new Router({
             name: "blogs",
             component: () => import('./pages/blogs.vue')
         },
-        {
-            path: "/class",
-            name: "class",
-            component: () => import('./pages/class.vue')
-        },
     ]
 })

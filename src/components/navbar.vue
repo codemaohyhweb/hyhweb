@@ -43,20 +43,12 @@ export default {
           text: "首页",
         },
         {
-          path: "/member",
-          text: "成员",
-        },
-        {
           path: "/blog",
           text: "博客",
         },
         {
           path: "/forum",
           text: "论坛",
-        },
-        {
-          path: "/class",
-          text: "教程",
         },
       ],
       user: this.$store.state.user,

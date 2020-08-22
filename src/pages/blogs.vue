@@ -1,13 +1,12 @@
 <template>
   <div class="blogs">
-    <div class="bs-head">
-      <h1>{{blogs.name}}</h1>
-      <p>
-        {{stime(blogs.updated_at)}}
-      </p>
-    </div>
-    <div class="bs-content">
-      {{blogs.description}}
+    <div class="b-head"></div>
+    <div class="bs-box">
+      <div class="bs-head">
+        <h1>{{blogs.name}}</h1>
+        <p>{{stime(blogs.updated_at)}}</p>
+      </div>
+      <div class="bs-content" v-html="blogs.content.blocks[0].data.text"></div>
     </div>
   </div>
 </template>
@@ -21,14 +20,78 @@ export default {
   },
   methods: {
     stime(time) {
-      return time.substr(0, 4);
+      Date.prototype.format = function (format) {
+        var o = {
+          "M+": this.getMonth() + 1, //month
+          "d+": this.getDate(), //day
+          "h+": this.getHours(), //hour
+          "m+": this.getMinutes(), //minute
+          "s+": this.getSeconds(), //second
+          "q+": Math.floor((this.getMonth() + 3) / 3), //quarter
+          S: this.getMilliseconds(), //millisecond
+        };
+        if (/(y+)/i.test(format)) {
+          format = format.replace(
+            RegExp.$1,
+            (this.getFullYear() + "").substr(4 - RegExp.$1.length)
+          );
+        }
+        for (var k in o) {
+          if (new RegExp("(" + k + ")").test(format)) {
+            format = format.replace(
+              RegExp.$1,
+              RegExp.$1.length == 1
+                ? o[k]
+                : ("00" + o[k]).substr(("" + o[k]).length)
+            );
+          }
+        }
+        return format;
+      };
+      var t = [
+        time.split("-")[0],
+        time.split("-")[1],
+        time.split("-")[2].split("T")[0],
+        time.split("-")[2].split("T")[1].split(":")[0],
+        time.split("-")[2].split("T")[1].split(":")[1],
+        time.split("-")[2].split("T")[1].split(":")[2].split(".")[0],
+      ];
+      var s = [
+        new Date().format("yyyy"),
+        new Date().format("MM"),
+        new Date().format("dd"),
+        new Date().format("hh"),
+        new Date().format("mm"),
+        new Date().format("ss"),
+      ];
+      var r = "";
+      for (var i = 0; i < t.length; i++) {
+        var q = t[i];
+        var p = s[i];
+        if (p - q > 0) {
+          if (i == 0 || i == 1 || i == 2) {
+            r = t[0] + "-" + t[1] + "-" + t[2];
+            break;
+          } else if (i == 3) {
+            r = s[3] - t[3] + "小时前";
+            break;
+          } else if (i == 4) {
+            r = s[4] - t[4] + "分钟前";
+            break;
+          } else {
+            r = "刚刚";
+            break;
+          }
+        }
+      }
+      return r;
     },
     getblog() {
       var _this = this;
       this.$axios({
         url:
           "/baklibapi/articles/" +
-          _this.$route.params.id +
+          _this.$route.query.id +
           "?tenant_id=a5e31530-0273-48ba-985d-3f425ab577c1",
         method: "GET",
         timeout: 0,
@@ -39,7 +102,6 @@ export default {
         },
       }).then(function (res) {
         _this.blogs = res.data.message;
-        console.log(_this.blogs)
       });
     },
   },
@@ -55,41 +117,17 @@ export default {
   height: 300px;
   background: linear-gradient(#1280ff, #297eff);
 }
-.b-content-l {
-  width: 60vw;
-  vertical-align: middle;
-  display: inline-block;
+.bs-content {
+  word-wrap: break-word;
 }
-.b-content-r {
-  width: 40vw;
-  vertical-align: middle;
-  display: inline-block;
-}
-.bl-box {
-  height: 150px;
-  overflow: hidden;
-  padding: 10px;
-  padding-left: 180px;
-}
-.bl-img {
-  border-radius: 10px;
-  width: 100%;
-  height: 150px;
-  margin: auto;
-  background: #297eff;
-}
-.bl-content {
+.bs-box {
+  width: 800px;
+  margin: 30px auto;
+  box-shadow: 0 10px 33px rgba(9, 16, 43, 0.15);
   padding: 20px;
 }
-.bl-content-body-title {
-  padding: 10px 0;
-  font-weight: 600;
-  font-size: 18px;
-}
-.bl-content-body-text {
-  font-size: 15px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+.bs-head {
+  line-height: 40px;
+  margin-bottom: 20px;
 }
 </style>

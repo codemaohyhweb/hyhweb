@@ -23,7 +23,7 @@
             :href="'https://shequ.codemao.cn/user/'+post.user.id"
           >{{post.user.nickname}}</a>
         </div>
-        <p class="r-community-r-detail--publish_time">{{post.created_at}}</p>
+        <p class="r-community-r-detail--publish_time" v-format="'YYYY-MM-DD'">{{post.created_at}}</p>
       </div>
       <div class="r-community-r-detail--forum_content" v-html="post.content"></div>
       <el-button type="primary" style="margin:10px auto;display:block">发布回帖</el-button>
@@ -50,7 +50,7 @@
                 >{{postc.user.nickname}}</a>
               </div>
               <p class="c-comment-c-comment_item--content" v-html="postc.content"></p>
-              <p class="c-comment-c-comment_item--content_bottom">{{postc.created_at}}</p>
+              <p class="c-comment-c-comment_item--content_bottom" v-format="'YYYY-MM-DD'">{{postc.created_at}}</p>
               <div
                 class="c-comment-c-comment_reply--reply_container"
                 v-for="(postcr,index) in postr.earliest_comments"
@@ -73,7 +73,7 @@
                         >{{postcr.user.nickname}}</a>：
                         <span>{{postcr.content}}</span>
                       </div>
-                      <p class="c-comment-c-comment_reply--content_bottom">{{postcr.created_at}}</p>
+                      <p class="c-comment-c-comment_reply--content_bottom" v-format="'YYYY-MM-DD'">{{postcr.created_at}}</p>
                     </div>
                   </div>
                 </div>
@@ -128,7 +128,8 @@ export default {
       };
       this.$axios({
         method: "POST",
-        url: "/codemaoapi/web/forums/posts/"+this.$route.params.id+"/replies",
+        url:
+          "/codemaoapi/web/forums/posts/" + this.$route.params.id + "/replies",
         data: data,
       });
     },
@@ -152,6 +153,17 @@ export default {
       _this.post = res.data;
     });
     this.getpostr(1);
+  },
+  watch: {
+    "$route.params.id": function () {
+      var _this = this;
+      this.$axios(
+        "/codemaoapi/web/forums/posts/" + this.$route.params.id + "/details"
+      ).then(function (res) {
+        _this.post = res.data;
+      });
+      this.getpostr(1);
+    },
   },
 };
 </script>
