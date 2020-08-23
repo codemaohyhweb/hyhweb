@@ -121,10 +121,10 @@ export default {
           } else if (i == 3) {
             console.log(s)
             console.log(t)
-            r = s[3] - t[3] + "小时前";
+            r = "大约"+(s[3] - t[3] )+ "小时前";
             break;
           } else if (i == 4) {
-            r = s[4] - t[4] + "分钟前";
+            r = "大约"+(s[4] - t[4]) + "分钟前";
             break;
           } else {
             r = "刚刚";
@@ -135,7 +135,7 @@ export default {
       return r;
     },
     getblog(page) {
-      this.loading = false;
+      this.loading = true;
       var _this = this;
       this.$axios({
         url:

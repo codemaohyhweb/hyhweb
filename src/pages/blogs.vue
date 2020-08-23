@@ -6,7 +6,21 @@
         <h1>{{blogs.name}}</h1>
         <p>{{stime(blogs.updated_at)}}</p>
       </div>
-      <div class="bs-content" v-html="blogs.content.blocks[0].data.text"></div>
+      <div class="bs-content">
+        <div v-for="(c,index) in blogs.content.blocks" :key="index">
+          <el-image
+            v-if="c.type=='qiniuImage'"
+            style="width: 100%"
+            :src="blogs.content.blocks[0].data.url"
+            :preview-src-list="[blogs.content.blocks[0].data.url]"
+          />
+          <p
+            v-if="!c.type || c.type=='paragraph'"
+            :style="'text-align:'+c.data.alignment"
+            v-html="c.data.text"
+          ></p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -73,10 +87,11 @@ export default {
             r = t[0] + "-" + t[1] + "-" + t[2];
             break;
           } else if (i == 3) {
-            r = s[3] - t[3] + "小时前";
+            r = "大约"+(s[3] - t[3]) + "小时前";
+            console.log(r)
             break;
           } else if (i == 4) {
-            r = s[4] - t[4] + "分钟前";
+            r = "大约"+(s[4] - t[4]) + "分钟前";
             break;
           } else {
             r = "刚刚";
@@ -113,7 +128,7 @@ export default {
 
 <style>
 .bs-content {
-  word-wrap: break-word;
+  line-height: 30px;
 }
 .bs-box {
   width: 800px;

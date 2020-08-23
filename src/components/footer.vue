@@ -5,16 +5,28 @@
         <div class="footer-item">
           <div class="footer-item-h">关于我们</div>
           <div class="footer-item-p">编程猫后援会</div>
-          <div class="footer-item-p">编程猫</div>
+          <div class="footer-item-p">
+            <a href="https://shequ.codemao.cn" target="_blank" rel="noopener noreferrer">编程猫社区</a>
+          </div>
         </div>
         <div class="footer-item">
           <div class="footer-item-h">联系我们</div>
-          <div class="footer-item-p">加入我们</div>
+          <div class="footer-item-p">
+            <a
+              href="https://qm.qq.com/cgi-bin/qm/qr?k=nT-42kovrX3KEPoiwo8DlERw27LGmBUu&jump_from=webapi"
+              target="_blank"
+              rel="noopener noreferrer"
+            >加入我们</a>
+          </div>
         </div>
         <div class="footer-item">
           <div class="footer-item-h">友情链接</div>
-          <div class="footer-item-p">源码星球</div>
-          <div class="footer-item-p">编程猫</div>
+          <div class="footer-item-p">
+            <a href="https://www.codemao.cn" target="_blank" rel="noopener noreferrer">编程猫</a>
+          </div>
+          <div class="footer-item-p">
+            <a href="https://www.codesra.cn" target="_blank" rel="noopener noreferrer">源码星球</a>
+          </div>
         </div>
         <div class="footer-item">
           <div class="footer-other">

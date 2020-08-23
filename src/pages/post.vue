@@ -26,7 +26,7 @@
         <p class="r-community-r-detail--publish_time" v-format="'YYYY-MM-DD'">{{post.created_at}}</p>
       </div>
       <div class="r-community-r-detail--forum_content" v-html="post.content"></div>
-      <el-button type="primary" style="margin:10px auto;display:block">发布回帖</el-button>
+      <el-button type="primary" style="margin:10px auto;display:block" @click="bottom()">发布回帖</el-button>
       <div class="r-community-r-detail--forum_comments_container">
         <p class="r-community-r-detail--comments_title">
           全部回帖:
@@ -110,6 +110,9 @@ export default {
     };
   },
   methods: {
+    bottom(){
+      window.scrollTo(0, document.body.clientHeight-1000);
+    },
     getpostr(page) {
       var _this = this;
       this.$axios(
