@@ -6,12 +6,11 @@
         <el-row class="bl-box" v-for="(bl,item) in blogs.items" :key="item">
           <router-link :to="{name:'blogs',path: '/blogs', query: { id: bl.id, }}">
             <el-col :span="10">
-              <el-image
+              <div
                 v-if="bl.features['guide-leap']"
-                fit="cover"
                 class="bl-img bgimg"
                 :style="'background-image:url('+bl.features['guide-leap']['article.default'].variables.thumbs+');'"
-              ></el-image>
+              ></div>
               <div v-if="!bl.features['guide-leap']" class="bl-img"></div>
             </el-col>
             <el-col :span="14">
@@ -119,12 +118,10 @@ export default {
             r = t[0] + "-" + t[1] + "-" + t[2];
             break;
           } else if (i == 3) {
-            console.log(s)
-            console.log(t)
-            r = "大约"+(s[3] - t[3] )+ "小时前";
+            r = "大约" + (s[3] - t[3]) + "小时前";
             break;
           } else if (i == 4) {
-            r = "大约"+(s[4] - t[4]) + "分钟前";
+            r = "大约" + (s[4] - t[4]) + "分钟前";
             break;
           } else {
             r = "刚刚";
@@ -183,23 +180,42 @@ export default {
         var total_pages = 0;
         var total_count = 0;
         for (var i = 0; i < blo.items.length; i++) {
-          if (
-            blo.items[i].name.indexOf(_this.word) >= 0 ||
-            blo.items[i].content.blocks[0].data.text.indexOf(_this.word) >= 0
-          ) {
+          if (blo.items[i].name.indexOf(_this.word) >= 0) {
             total_count++;
+          }
+          for (var o = 0; i < blo.items[i].content.blocks.length - 1; o++) {
+            if (blo.items[i].content.blocks[o].data.text) {
+              if (
+                blo.items[i].content.blocks[o].data.text.indexOf(_this.word) >=
+                0
+              ) {
+                total_count++;
+                break;
+              }
+            }
           }
         }
         total_pages = Math.ceil(total_count / 10);
         for (var f = (page - 1) * 10; f < blo.items.length; f++) {
-          if (
-            blo.items[f].name.indexOf(_this.word) >= 0 ||
-            blo.items[f].content.blocks[0].data.text.indexOf(_this.word) >= 0
-          ) {
+          if (blo.items[f].name.indexOf(_this.word) >= 0) {
             _this.blogs.items.push(blo.items[f]);
             if (_this.blogs.items.length >= 10) {
               break;
             }
+          }
+          for (var l = 0; i < blo.items[f].content.blocks.length; l++) {
+            if (blo.items[f].content.blocks[l].data.text) {
+              if (
+                blo.items[f].content.blocks[l].data.text.indexOf(_this.word) >=
+                0
+              ) {
+                _this.blogs.items.push(blo.items[f]);
+                break;
+              }
+            }
+          }
+          if (_this.blogs.items.length >= 10) {
+            break;
           }
         }
         _this.blogs.meta = {
@@ -218,13 +234,30 @@ export default {
 </script>
 
 <style>
+@media (min-width: 960px) {
+  .b-content-l {
+    width: 59vw;
+  }
+  .b-content-r {
+    width: 35vw;
+  }
+  .bl-box {
+    padding-left: 180px !important;
+  }
+}
+@media (max-width: 960px) and (min-width: 500px) {
+  .b-content-l {
+    width: 100vw;
+  }
+  .b-content-r {
+    width: 100vw;
+  }
+}
 .b-content-l {
-  width: 59vw;
   vertical-align: top;
   display: inline-block;
 }
 .b-content-r {
-  width: 35vw;
   vertical-align: top;
   display: inline-block;
 }
@@ -236,12 +269,11 @@ export default {
   height: 150px;
   overflow: hidden;
   padding: 20px;
-  padding-left: 180px;
 }
 .bl-img {
   border-radius: 10px;
   width: 100%;
-  height: 150px;
+  height: 130px;
   margin: auto;
   background: #297eff;
 }

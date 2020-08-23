@@ -180,7 +180,6 @@ export default {
           //insertImg()为插入图片的函数
           //循环插入图片
           // for (let i = 0; i < 1; i++) {
-          console.log(result);
           let url = "https://static.codemao.cn/" + result.hash;
           insertImg(url);
           // }

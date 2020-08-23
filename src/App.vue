@@ -50,8 +50,8 @@ a:hover{
   color: #409EFF;
 }
 .bgimg{
-  background: center;
-  background-size: cover;
+  background-position: center !important;
+  background-size: cover !important;
 }
 .b-head {
   width: 100vw;

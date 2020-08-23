@@ -88,7 +88,6 @@ export default {
             break;
           } else if (i == 3) {
             r = "大约"+(s[3] - t[3]) + "小时前";
-            console.log(r)
             break;
           } else if (i == 4) {
             r = "大约"+(s[4] - t[4]) + "分钟前";
@@ -131,7 +130,7 @@ export default {
   line-height: 30px;
 }
 .bs-box {
-  width: 800px;
+  width: 70vw;
   margin: 30px auto;
   box-shadow: 0 10px 33px rgba(9, 16, 43, 0.15);
   padding: 20px;

@@ -217,7 +217,7 @@ export default {
 }
 .h-ab-content {
   height: 400px;
-  width: 50%;
+  width: 400px;
   display: inline-block;
   vertical-align: top;
 }
@@ -227,19 +227,19 @@ export default {
   padding: 3rem 4rem;
 }
 .h-ab-logo {
-  width: 50%;
+  width: 400px;
   height: 400px;
   display: inline-block;
   vertical-align: top;
   position: relative;
 }
 .h-ab-logo-img {
-  width: 100%;
+  width: 400px;
   top: -20px;
   left: -20px;
   border-radius: 10px;
   position: absolute;
-  height: 100%;
+  height: 400px;
   box-shadow: 0 10px 33px rgba(9, 16, 43, 0.15);
 }
 </style>
