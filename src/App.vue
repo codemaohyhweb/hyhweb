@@ -41,7 +41,7 @@ export default {
 }
 a{
   text-decoration: none;
-  color: initial;
+  color: inherit;
 }
 a:hover{
   color: #409EFF;
