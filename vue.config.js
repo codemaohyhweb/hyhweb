@@ -16,13 +16,15 @@ module.exports = {
                     // 接口设置了域名限制，所以要改掉origin来符合后端的域名限制的判断
                     const cookies = proxyReq.getHeader('cookie');
                     if (proxyReq.getHeader('origin')) {
-                        proxyReq.setHeader('origin', 'https://shequ.codemao.cn/');
+                        proxyReq.setHeader('origin', 'https://shequ.codemao.cn');
+                    }
+                    if (proxyReq.getHeader('referer')) {
+                      proxyReq.setHeader('referer', 'https://shequ.codemao.cn/community');
                     }
                     if (cookies) {
                       const cookieKey = 'auth';
-                      const reg = new RegExp(`(?:(?:^|.*;\\s*)${cookieKey}\\s*\\=\\s*([^;]*).*$)|^.*$`);
-                      const cookie = cookies.replace(reg, '$1');
-                      proxyReq.setHeader('cookie', `authorization=${cookie}`)
+                      const cookie = cookies.replace(cookieKey, 'authorization');
+                      proxyReq.setHeader('cookie', cookie);
                     }
                 }
             },
