@@ -56,7 +56,7 @@
     </div>
     <div class="h-box">
       <div class="h-box-h">时间轴</div>
-      <el-timeline reverse="true" style="width:50%;margin:auto;text-align:left">
+      <el-timeline :reverse="true" style="width:50%;margin:auto;text-align:left">
         <el-timeline-item
           v-for="(a, index) in api[2].items"
           :key="index"

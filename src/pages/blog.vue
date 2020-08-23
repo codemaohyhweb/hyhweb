@@ -218,11 +218,6 @@ export default {
 </script>
 
 <style>
-.b-head {
-  width: 100vw;
-  height: 300px;
-  background: linear-gradient(#1280ff, #297eff);
-}
 .b-content-l {
   width: 59vw;
   vertical-align: top;

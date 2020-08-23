@@ -156,7 +156,11 @@ export default {
       this.search(currentPage);
     },
     write() {
-      this.write_box = true;
+      if(this.$store.state.user.id){
+        this.write_box = true;
+      }else{
+        this.$message("请先登录~")
+      }
     },
   },
   created() {

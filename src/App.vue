@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-    <navbar></navbar>
+    <navbar/>
     <router-view></router-view>
+    <zfooter/>
   </div>
 </template>
 
 <script>
 import navbar from './components/navbar'
+import zfooter from './components/footer'
 export default {
   name: "App",
   components:{
-    navbar
+    navbar,
+    zfooter,
   }
 };
 </script>
@@ -48,6 +51,12 @@ a:hover{
 }
 .bgimg{
   background: center;
+  background-size: cover;
+}
+.b-head {
+  width: 100vw;
+  height: 200px;
+  background: url(./assets/codemaohyhbg.jpg) center;
   background-size: cover;
 }
 </style>

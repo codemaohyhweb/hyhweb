@@ -112,11 +112,6 @@ export default {
 </script>
 
 <style>
-.b-head {
-  width: 100vw;
-  height: 300px;
-  background: linear-gradient(#1280ff, #297eff);
-}
 .bs-content {
   word-wrap: break-word;
 }
