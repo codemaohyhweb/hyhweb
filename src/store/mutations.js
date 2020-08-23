@@ -1,6 +1,7 @@
 import state from './state.js';
 import axios from 'axios';
 import el from 'element-ui';
+import { setCookie } from '../utils';
 
 const mutations = {
     getuser() {
@@ -21,6 +22,7 @@ const mutations = {
             if (response.status == 200) {
                 el.Message.success('登录成功');
                 state.user = response.data.user_info;
+                setCookie({key: 'auth', value: response.data.auth.token});
             } else {
                 el.Message.error('用户或密码错误');
             }
