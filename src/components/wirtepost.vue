@@ -25,7 +25,7 @@ export default {
   methods: {
     post() {
       if (this.title.length < 5 || this.title.length > 50) {
-        this.$message.error("大哥( ఠൠఠ )ﾉ看标题要求（5-50字内）");
+        this.$message.error("( ఠൠఠ )ﾉ标题要求（5-50字内）");
       } else {
         if (this.content.length <= 20) {
           this.$message.error("内容太少了~再肝点吧ε=ε=ε=(~￣▽￣)~");

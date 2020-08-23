@@ -23,6 +23,7 @@ const mutations = {
                 el.Message.success('登录成功');
                 state.user = response.data.user_info;
                 setCookie({key: 'auth', value: response.data.auth.token});
+                window.location.reload() 
             } else {
                 el.Message.error('用户或密码错误');
             }
@@ -40,6 +41,7 @@ const mutations = {
     signout() {
         axios({ method: "POST", url: "/codemaoapi/tiger/v3/web/accounts/logout", data: {} }).then(function () {
             el.Message.success('退出成功');
+            window.location.reload() 
         }).catch(function () {
             el.Message.error('未知错误');
         })
@@ -51,7 +53,8 @@ const mutations = {
             url: "/codemaoapi/web/works/subjects/856/post",
             data: data,
         }).then(function () {
-            el.Message.success("发布成功")
+            el.Message.success("发布成功");
+            window.location.reload() 
         }).catch(function (error) {
             el.Message.error("未知错误")
             console.log(error)

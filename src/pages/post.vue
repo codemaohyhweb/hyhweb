@@ -50,10 +50,13 @@
                 >{{postc.user.nickname}}</a>
               </div>
               <p class="c-comment-c-comment_item--content" v-html="postc.content"></p>
-              <p class="c-comment-c-comment_item--content_bottom" v-format="'YYYY-MM-DD'">{{postc.created_at}}</p>
+              <p
+                class="c-comment-c-comment_item--content_bottom"
+                v-format="'YYYY-MM-DD'"
+              >{{postc.created_at}}</p>
               <div
                 class="c-comment-c-comment_reply--reply_container"
-                v-for="(postcr,index) in postr.earliest_comments"
+                v-for="(postcr,index) in postc.earliest_comments"
                 :key="index"
               >
                 <div class="c-comment-c-comment_reply--reply_list">
@@ -73,7 +76,10 @@
                         >{{postcr.user.nickname}}</a>：
                         <span>{{postcr.content}}</span>
                       </div>
-                      <p class="c-comment-c-comment_reply--content_bottom" v-format="'YYYY-MM-DD'">{{postcr.created_at}}</p>
+                      <p
+                        class="c-comment-c-comment_reply--content_bottom"
+                        v-format="'YYYY-MM-DD'"
+                      >{{postcr.created_at}}</p>
                     </div>
                   </div>
                 </div>
@@ -110,8 +116,8 @@ export default {
     };
   },
   methods: {
-    bottom(){
-      window.scrollTo(0, document.body.clientHeight-1000);
+    bottom() {
+      window.scrollTo(0, document.body.clientHeight - 1000);
     },
     getpostr(page) {
       var _this = this;
@@ -126,15 +132,29 @@ export default {
       });
     },
     writepostr() {
-      var data = {
-        content: this.rtext,
-      };
-      this.$axios({
-        method: "POST",
-        url:
-          "/codemaoapi/web/forums/posts/" + this.$route.params.id + "/replies",
-        data: data,
-      });
+      if (this.rtext.length <= 3) {
+        this.$message.info("回复内容必须大于3个字哦~")
+      } else {
+        var data = {
+          content: this.rtext,
+        };
+        var _this = this;
+        this.$axios({
+          method: "POST",
+          url:
+            "/codemaoapi/web/forums/posts/" +
+            this.$route.params.id +
+            "/replies",
+          data: data,
+        })
+          .then(function () {
+            _this.$message.success("回复成功~");
+            window.location.reload()
+          })
+          .catch(function () {
+            _this.$message.error("未知错误");
+          });
+      }
     },
     writepostrr(id) {
       var data = {
