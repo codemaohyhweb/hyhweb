@@ -21,7 +21,7 @@ export default {
 <style>
 @font-face{
      font-family: '站酷庆科黄油体'; 
-     src:url('./assets/font/站酷庆科黄油体.ttf') format('truetype'),
+     src:url('./assets/font/站酷庆科黄油体.ttf'),
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
