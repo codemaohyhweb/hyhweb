@@ -19,6 +19,10 @@ export default {
 </script>
 
 <style>
+@font-face{
+     font-family: '站酷庆科黄油体'; 
+     src:url('./assets/font/站酷庆科黄油体.ttf') format('truetype'),
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -56,7 +60,7 @@ a:hover{
 .b-head {
   width: 100vw;
   height: 200px;
-  background: url(./assets/codemaohyhbg.jpg) center;
+  background: url(./assets/img/codemaohyhbg.jpg) center;
   background-size: cover;
 }
 </style>

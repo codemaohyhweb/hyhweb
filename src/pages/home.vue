@@ -23,7 +23,7 @@
       <div class="h-box-h">关于我们</div>
       <div class="h-ab-box">
         <div class="h-ab-logo">
-          <el-image class="h-ab-logo-img" :src="require('../assets/logo.jpg')"></el-image>
+          <el-image class="h-ab-logo-img" :src="require('../assets/img/logo.jpg')"></el-image>
         </div>
         <div class="h-ab-content">
           <div class="h-ab-content-box">{{api[3].content}}</div>

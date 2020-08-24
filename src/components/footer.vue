@@ -36,7 +36,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <el-image class="footer-other-item-icon" :src="require('../assets/bilibili.svg')"></el-image>
+                <el-image class="footer-other-item-icon" :src="require('../assets/img/bilibili.svg')"></el-image>
               </a>
             </div>
             <div class="footer-other-item">
@@ -48,7 +48,7 @@
                 <el-image
                   style="width: 30px; margin-top: 35px; height: 30px;"
                   class="footer-other-item-icon"
-                  :src="require('../assets/qq.svg')"
+                  :src="require('../assets/img/qq.svg')"
                 ></el-image>
               </a>
             </div>

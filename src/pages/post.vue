@@ -192,7 +192,7 @@ export default {
 </script>
 
 <style>
-@import url(../assets/post.css);
+@import url(../assets/css/post.css);
 .p-write {
   height: 300px;
   overflow: auto;

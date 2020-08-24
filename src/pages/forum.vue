@@ -166,7 +166,7 @@ export default {
 </script>
 
 <style>
-@import url(../assets/forum.css);
+@import url(../assets/css/forum.css);
 .all-post-boxs {
   position: relative;
   margin: 30px auto;
