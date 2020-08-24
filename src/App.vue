@@ -19,10 +19,6 @@ export default {
 </script>
 
 <style>
-@font-face{
-     font-family: '站酷庆科黄油体'; 
-     src:url('./assets/font/站酷庆科黄油体.ttf'),
-}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

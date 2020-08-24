@@ -30,5 +30,10 @@ export default new Router({
             name: "blogs",
             component: () => import('./pages/blogs.vue')
         },
+        {
+            path: "/codemaohyh",
+            name: "后台",
+            component: () => import('./pages/zhome.vue')
+        },
     ]
 })
