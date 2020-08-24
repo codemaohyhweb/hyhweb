@@ -3,10 +3,28 @@
     <div class="h-box" style="padding:40px 0 30px 0;background:#f2f4f8">
       <el-carousel
         trigger="click"
-        style="margin:0 auto;width:90%"
+        style="margin:0 auto;width:1000px"
         :interval="4000"
-        :type="col>=12?'':'card'"
+        v-if="col<12"
+        type="card"
         height="250px"
+      >
+        <el-carousel-item
+          v-for="(rc,index) in api[0].items"
+          :key="index"
+          style="border-radius: 10px"
+        >
+          <a :href="rc.href" target="_blank">
+            <div class="bgimg" :style="'width:100%;height:100%;background-image:url('+rc.src+');'"></div>
+          </a>
+        </el-carousel-item>
+      </el-carousel>
+      <el-carousel
+        trigger="click"
+        style="margin:0 auto;width:90vw"
+        :interval="4000"
+        v-if="col>=12"
+        height="45vw"
       >
         <el-carousel-item
           v-for="(rc,index) in api[0].items"

@@ -8,7 +8,7 @@
         </el-menu-item>
         <el-menu-item v-for="(n,index) in navbar" :key="index" :index="n.path">{{n.text}}</el-menu-item>
         <el-menu-item class="right" v-if="!user.id">
-          <a @click="log_box_w=90;sign_box=true;sign_name='in'">登录</a>
+          <a @click="log_box_w=30;sign_box=true;sign_name='in'">登录</a>
         </el-menu-item>
         <el-submenu index="/" class="right" v-if="user.id">
           <template slot="title">
@@ -29,18 +29,20 @@
       </el-tabs>
     </el-dialog>
     <el-drawer :visible.sync="drawer" direction="rtl" :with-header="false">
-      <el-menu :default-active="activeIndex" menu-trigger="click" router>
-        <el-menu-item v-for="(n,index) in navbar" :key="index" :index="n.path">{{n.text}}</el-menu-item>
-        <el-menu-item v-if="!user.id">
-          <a @click="log_box_w=90;sign_box=true;sign_name='in'">登录</a>
-        </el-menu-item>
-        <el-submenu index="/"  v-if="user.id">
-          <template slot="title">
-            <el-avatar :size="30" :src="user.avatar_url" />
-          </template>
-          <el-menu-item @click="sign_out()">退出登录</el-menu-item>
-        </el-submenu>
-      </el-menu>
+      <div style="width:300px">
+        <el-menu :default-active="activeIndex" menu-trigger="click" router>
+          <el-menu-item v-for="(n,index) in navbar" :key="index" :index="n.path">{{n.text}}</el-menu-item>
+          <el-menu-item v-if="!user.id">
+            <a @click="log_box_w=90;sign_box=true;sign_name='in'">登录</a>
+          </el-menu-item>
+          <el-submenu index="/" v-if="user.id">
+            <template slot="title">
+              <el-avatar :size="30" :src="user.avatar_url" />
+            </template>
+            <el-menu-item @click="sign_out()">退出登录</el-menu-item>
+          </el-submenu>
+        </el-menu>
+      </div>
     </el-drawer>
   </div>
 </template>
@@ -55,7 +57,7 @@ export default {
       activeIndex: this.$route.path,
       navbarS: 0,
       drawer: false,
-      log_box_w:30,
+      log_box_w: 30,
       navbar: [
         {
           path: "/",
@@ -171,6 +173,9 @@ export default {
 }
 @media (max-width: 700px) {
   .navbar .el-menu-item {
+    display: none !important;
+  }
+  .navbar .el-submenu {
     display: none !important;
   }
   .navbar .navbar-logo {
