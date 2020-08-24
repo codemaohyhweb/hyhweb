@@ -174,7 +174,7 @@ export default {
   box-shadow: 0 10px 33px rgba(9, 16, 43, 0.15);
 }
 
-@media (max-width: 960px) {
+@media (max-width: 700px) {
   .f-box-a {
     width: 100vw;
     margin-top: 140px;
@@ -187,7 +187,7 @@ export default {
     box-shadow: none !important;
   }
 }
-@media (min-width: 960px) {
+@media (min-width: 700px) {
   .f-box-a {
     width: 50vw;
     display: inline-block;

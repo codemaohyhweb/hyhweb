@@ -209,14 +209,32 @@ export default {
 .h-ab-box {
   width: 70vw;
   margin: 20px auto;
-  height: 400px;
   margin-bottom: 70px;
   border-radius: 10px;
   background: #f7f8fa;
   color: #111;
 }
+@media (max-width: 700px) {
+  .h-ab-box {
+    width: 100vw !important;
+  }
+  .h-ab-logo {
+    width: 100vw !important;
+    height: 100vw !important;
+    display: block !important;
+  }
+  .h-ab-logo-img {
+    width: 90vw !important;
+    top: 5vw !important;
+    left: 5vw !important;
+    height: 90vw !important;
+  }
+  .h-ab-content {
+    width: 100vw !important;
+    display: block !important;
+  }
+}
 .h-ab-content {
-  height: 400px;
   width: 400px;
   display: inline-block;
   vertical-align: top;

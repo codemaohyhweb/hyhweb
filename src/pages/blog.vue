@@ -234,7 +234,7 @@ export default {
 </script>
 
 <style>
-@media (min-width: 960px) {
+@media (min-width: 700px) {
   .b-content-l {
     width: 59vw;
   }
@@ -245,7 +245,7 @@ export default {
     padding-left: 180px !important;
   }
 }
-@media (max-width: 960px) and (min-width: 500px) {
+@media (max-width: 700px) and (min-width: 500px) {
   .b-content-l {
     width: 100vw;
   }

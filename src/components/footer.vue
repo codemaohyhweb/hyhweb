@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div class="footer">
-      <div style="padding:5vw 20vh">
+      <div class="footer-box">
         <div class="footer-item">
           <div class="footer-item-h">关于我们</div>
           <div class="footer-item-p">编程猫后援会</div>
@@ -73,11 +73,28 @@ export default {
   background: #1a1e2f;
   text-align: center;
 }
+.footer-box {
+  padding: 5vw 20vh;
+}
 .footer-item {
   display: inline-block;
   vertical-align: top;
   padding: 50px 40px;
   text-align: left;
+}
+@media (max-width: 700px) {
+  .footer-item {
+    display: block !important;
+    text-align: center !important;
+    padding: 0 !important;
+  }
+  .footer-box {
+    padding: 5vh 2vw;
+  }
+  .footer-other-item {
+    width: 80vw !important;
+    display: block !important;
+  }
 }
 .footer-item-h {
   color: #fff;
@@ -96,8 +113,6 @@ export default {
 }
 .footer-other {
   border-left: 1px solid #bbbbbb;
-  width: 300px;
-  height: 100px;
   padding-left: 20px;
 }
 .footer-other-item-icon {

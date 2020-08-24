@@ -87,10 +87,10 @@ export default {
             r = t[0] + "-" + t[1] + "-" + t[2];
             break;
           } else if (i == 3) {
-            r = "大约"+(s[3] - t[3]) + "小时前";
+            r = "大约" + (s[3] - t[3]) + "小时前";
             break;
           } else if (i == 4) {
-            r = "大约"+(s[4] - t[4]) + "分钟前";
+            r = "大约" + (s[4] - t[4]) + "分钟前";
             break;
           } else {
             r = "刚刚";
@@ -134,6 +134,12 @@ export default {
   margin: 30px auto;
   box-shadow: 0 10px 33px rgba(9, 16, 43, 0.15);
   padding: 20px;
+}
+@media (max-width: 700px) {
+  .bs-box {
+    width: 100vw !important;
+    margin: 0 !important;
+  }
 }
 .bs-head {
   line-height: 40px;

@@ -3,12 +3,12 @@
     <div class="navbar-s"></div>
     <div :class="this.navbarS>=100?'navbarS':''" class="navbar">
       <el-menu :default-active="activeIndex" mode="horizontal" menu-trigger="click" router>
-        <el-menu-item>
+        <el-menu-item class="navbar-logo">
           <div class="logo"></div>
         </el-menu-item>
         <el-menu-item v-for="(n,index) in navbar" :key="index" :index="n.path">{{n.text}}</el-menu-item>
         <el-menu-item class="right" v-if="!user.id">
-          <a @click="sign_box=true;sign_name='in'">登录</a>
+          <a @click="log_box_w=90;sign_box=true;sign_name='in'">登录</a>
         </el-menu-item>
         <el-submenu index="/" class="right" v-if="user.id">
           <template slot="title">
@@ -16,15 +16,32 @@
           </template>
           <el-menu-item @click="sign_out()">退出登录</el-menu-item>
         </el-submenu>
+        <el-menu-item @click="drawer=true" class="navbar-open">
+          <i class="el-icon-menu"></i>
+        </el-menu-item>
       </el-menu>
     </div>
-    <el-dialog :close-on-click-modal="false" :visible.sync="sign_box" width="30%">
+    <el-dialog :close-on-click-modal="false" :visible.sync="sign_box" :width="log_box_w+'%'">
       <el-tabs v-model="sign_name">
         <el-tab-pane label="登录" name="in">
           <signin />
         </el-tab-pane>
       </el-tabs>
     </el-dialog>
+    <el-drawer :visible.sync="drawer" direction="rtl" :with-header="false">
+      <el-menu :default-active="activeIndex" menu-trigger="click" router>
+        <el-menu-item v-for="(n,index) in navbar" :key="index" :index="n.path">{{n.text}}</el-menu-item>
+        <el-menu-item v-if="!user.id">
+          <a @click="log_box_w=90;sign_box=true;sign_name='in'">登录</a>
+        </el-menu-item>
+        <el-submenu index="/"  v-if="user.id">
+          <template slot="title">
+            <el-avatar :size="30" :src="user.avatar_url" />
+          </template>
+          <el-menu-item @click="sign_out()">退出登录</el-menu-item>
+        </el-submenu>
+      </el-menu>
+    </el-drawer>
   </div>
 </template>
 <script>
@@ -37,6 +54,8 @@ export default {
     return {
       activeIndex: this.$route.path,
       navbarS: 0,
+      drawer: false,
+      log_box_w:30,
       navbar: [
         {
           path: "/",
@@ -62,6 +81,9 @@ export default {
   methods: {
     s() {
       this.navbarS = document.documentElement.scrollTop;
+    },
+    open() {
+      console.log(this.w);
     },
     sign_out() {
       this.$store.state.user = {};
@@ -142,5 +164,20 @@ export default {
   height: 2px;
   left: 0;
   background: #409eff;
+}
+.navbar-open {
+  display: none;
+  float: right !important;
+}
+@media (max-width: 700px) {
+  .navbar .el-menu-item {
+    display: none !important;
+  }
+  .navbar .navbar-logo {
+    display: inline-block !important;
+  }
+  .navbar .navbar-open {
+    display: inline-block !important;
+  }
 }
 </style>
