@@ -51,7 +51,7 @@
     <div class="h-box" style="background:#f2f4f8">
       <div class="h-box-h">重要成员</div>
       <el-row :gutter="24" style="padding:0 5vw;padding-bottom:5vw">
-        <el-col v-for="(m,item) in api[1].items" :key="item" :span="col">
+        <el-col style="margin-bottom:20px" v-for="(m,item) in api[1].items" :key="item" :span="col">
           <div class="h-member-box">
             <br />
             <div class="h-member-head">
@@ -169,9 +169,9 @@ export default {
   width: 100vw;
 }
 .h-box-h {
-  font-size: 20px;
+  font-size: 30px;
   color: #111;
-  padding: 30px 0;
+  padding: 40px 0;
   font-weight: 600;
 }
 .h-member-box {
