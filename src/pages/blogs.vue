@@ -1,32 +1,42 @@
 <template>
   <div class="blogs">
+    <navbar></navbar>
     <div class="b-head"></div>
     <div class="bs-box">
-      <div class="bs-head">
-        <h1>{{blogs.name}}</h1>
-        <p>{{stime(blogs.updated_at)}}</p>
-      </div>
-      <div class="bs-content">
-        <div v-for="(c,index) in blogs.content.blocks" :key="index">
-          <el-image
-            v-if="c.type=='qiniuImage'"
-            style="width: 100%"
-            :src="blogs.content.blocks[0].data.url"
-            :preview-src-list="[blogs.content.blocks[0].data.url]"
-          />
-          <p
-            v-if="!c.type || c.type=='paragraph'"
-            :style="'text-align:'+c.data.alignment"
-            v-html="c.data.text"
-          ></p>
+      <div style="padding:5vw">
+        <div class="bs-head">
+          <h1>{{blogs.name}}</h1>
+          <p>{{stime(blogs.updated_at)}}</p>
+        </div>
+        <div class="bs-content">
+          <div v-for="(c,index) in blogs.content.blocks" :key="index">
+            <el-image
+              v-if="c.type=='qiniuImage'"
+              style="width: 100%"
+              :src="blogs.content.blocks[0].data.url"
+              :preview-src-list="[blogs.content.blocks[0].data.url]"
+            />
+            <p
+              v-if="!c.type || c.type=='paragraph'"
+              :style="'text-align:'+c.data.alignment"
+              v-html="c.data.text"
+            ></p>
+          </div>
         </div>
       </div>
     </div>
+    <zfooter></zfooter>
   </div>
 </template>
 
 <script>
+import zfooter from "../components/footer";
+import navbar from "../components/navbar";
 export default {
+  components: {
+    navbar,
+    zfooter,
+  },
   data() {
     return {
       blogs: {},
@@ -133,7 +143,6 @@ export default {
   width: 70vw;
   margin: 30px auto;
   box-shadow: 0 10px 33px rgba(9, 16, 43, 0.15);
-  padding: 20px;
 }
 @media (max-width: 700px) {
   .bs-box {

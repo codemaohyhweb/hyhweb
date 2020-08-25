@@ -1,5 +1,6 @@
 <template>
   <div class="blog">
+    <navbar></navbar>
     <div class="b-head"></div>
     <div class="b-content">
       <div class="b-content-l" v-loading="loading">
@@ -50,11 +51,18 @@
         </div>
       </div>
     </div>
+    <zfooter></zfooter>
   </div>
 </template>
 
 <script>
+import zfooter from "../components/footer";
+import navbar from "../components/navbar";
 export default {
+  components: {
+    navbar,
+    zfooter,
+  },
   data() {
     return {
       blogs: [],

@@ -1,5 +1,6 @@
 <template>
   <div class="post">
+    <navbar></navbar>
     <div class="r-community-r-detail--forum_container">
       <div class="r-community-r-detail--forum_title">{{post.title}}</div>
       <div class="r-community-r-detail--forum_info">
@@ -98,13 +99,18 @@
         </div>
       </div>
     </div>
+    <zfooter></zfooter>
   </div>
 </template>
 
 <script>
 import writesetVue from "../components/writeset.vue";
+import zfooter from "../components/footer";
+import navbar from "../components/navbar";
 export default {
   components: {
+    navbar,
+    zfooter,
     writesetVue,
   },
   data() {
@@ -133,7 +139,7 @@ export default {
     },
     writepostr() {
       if (this.rtext.length <= 3) {
-        this.$message.info("回复内容必须大于3个字哦~")
+        this.$message.info("回复内容必须大于3个字哦~");
       } else {
         var data = {
           content: this.rtext,
@@ -149,7 +155,7 @@ export default {
         })
           .then(function () {
             _this.$message.success("回复成功~");
-            window.location.reload()
+            window.location.reload();
           })
           .catch(function () {
             _this.$message.error("未知错误");

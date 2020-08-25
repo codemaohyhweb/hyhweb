@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div style="position:relative">
+    <navbar></navbar>
     <div class="f-box">
       <div v-if="index==0" v-loading="loading" class="all-post-boxs f-box-a">
         <div style="padding:10px">全部帖子（{{posts.total}}）</div>
@@ -74,7 +75,7 @@
           </el-col>
         </el-row>
       </div>
-      <div class="all-post-boxs f-box-b" style="text-align:center;padding:20px">
+      <div class="all-post-boxs f-box-b" style="text-align:center;">
         <el-input
           placeholder="搜索"
           prefix-icon="el-icon-search"
@@ -89,13 +90,18 @@
     <el-dialog title="发帖" :close-on-click-modal="false" :visible.sync="write_box" width="50%">
       <write />
     </el-dialog>
+    <zfooter></zfooter>
   </div>
 </template>
 
 <script>
 import write from "../components/wirtepost";
+import zfooter from "../components/footer";
+import navbar from "../components/navbar";
 export default {
   components: {
+    navbar,
+    zfooter,
     write,
   },
   data() {
@@ -196,6 +202,7 @@ export default {
   }
   .f-box-b {
     width: 25vw;
+    padding: 20px;
     display: inline-block;
     vertical-align: top;
     margin-left: 5vw;

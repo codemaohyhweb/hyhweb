@@ -1,7 +1,7 @@
 import state from './state.js';
 import axios from 'axios';
 import el from 'element-ui';
-import { setCookie } from '../utils';
+import { setCookie } from './utils';
 
 const mutations = {
     getuser() {

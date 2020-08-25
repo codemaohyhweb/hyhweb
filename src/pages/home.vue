@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <navbar></navbar>
     <div class="h-box" style="padding:40px 0 30px 0;background:#f2f4f8">
       <el-carousel
         trigger="click"
@@ -85,12 +86,18 @@
         </el-timeline-item>
       </el-timeline>
     </div>
-    <el-backtop target=".home"></el-backtop>
+    <zfooter></zfooter>
   </div>
 </template>
 
 <script>
+import zfooter from "../components/footer";
+import navbar from "../components/navbar";
 export default {
+  components: {
+    navbar,
+    zfooter,
+  },
   data() {
     return {
       col: 6,

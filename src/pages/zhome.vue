@@ -1,66 +1,88 @@
 <template>
   <div>
-    <el-form ref="form" :model="api" style="padding:30px">
+    <div style="background:#eee;padding:3vw">
+      <el-page-header @back="goBack" content="api数据管理"></el-page-header>
+    </div>
+    <el-form class="zhome" ref="form" :model="api" style="padding:30px">
+      <div class="box">
+        <el-button @click="cz" :disabled="zb<=1">撤回</el-button>
+        <el-button style="float:right" @click="cy" :disabled="zb>=zapib.length">重做</el-button>
+      </div>
       <el-tabs v-model="index" type="card">
         <el-tab-pane label="首页轮播图" name="1">
-          <div class="box" :key="i" v-for="(item,i) in api[0].items">
-            <el-badge style="width:100%;margin:20px 0" type="primary" :value="i">
-              <el-form-item label="轮播图跳转链接">
-                <el-input v-model="api[0].items[i].href" clearable></el-input>
-              </el-form-item>
-              <el-form-item label="轮播图图片链接">
-                <el-input v-model="api[0].items[i].src" clearable></el-input>
-              </el-form-item>
-              <div style="margin:10px auto;text-align:center">
-                <el-button @click="api[0].items.splice(i, 1)">删除</el-button>
-                <el-button @click="move(0,i)">移动</el-button>
-              </div>
-            </el-badge>
-          </div>
+          <draggable v-model="api[0].items" handle=".rank">
+            <div class="box" :key="i" v-for="(item,i) in api[0].items">
+              <el-badge style="width:100%;margin:20px 0;" type="primary" :value="i">
+                <div class="rank">
+                  <i class="el-icon-rank" style="float:left"></i>
+                  <p style="text-align:center">点我拖拽</p>
+                </div>
+                <el-form-item label="轮播图跳转链接">
+                  <el-input v-model="api[0].items[i].href" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="轮播图图片链接">
+                  <el-input v-model="api[0].items[i].src" clearable></el-input>
+                </el-form-item>
+                <div style="margin:10px auto;text-align:center">
+                  <el-button @click="api[0].items.splice(i, 1)">删除</el-button>
+                </div>
+              </el-badge>
+            </div>
+          </draggable>
           <el-button
             style="display:block;margin:10px auto"
             @click="api[0].items.push({ src: '', href: '', });"
           >添加</el-button>
         </el-tab-pane>
         <el-tab-pane label="首页关于我们" name="2">
-          <el-form-item label="轮播图跳转链接">
+          <el-form-item label="关于我们">
             <el-input v-model="api[3].content" type="textarea" :rows="10"></el-input>
           </el-form-item>
         </el-tab-pane>
         <el-tab-pane label="首页重要成员" name="3">
-          <div class="box" :key="i" v-for="(item,i) in api[1].items">
-            <el-form-item label="成员id">
-              <el-input v-model="api[1].items[i].id" clearable></el-input>
-            </el-form-item>
-            <el-form-item label="成员名字">
-              <el-input v-model="api[1].items[i].name" clearable></el-input>
-            </el-form-item>
-            <el-form-item label="成员介绍">
-              <el-input v-model="api[1].items[i].dep" clearable></el-input>
-            </el-form-item>
-            <div style="margin:10px auto;text-align:center">
-              <el-button @click="api[1].items.splice(i, 1)">删除</el-button>
-              <el-button @click="move(1,i)">移动</el-button>
+          <draggable v-model="api[1].items" handle=".rank">
+            <div class="box" :key="i" v-for="(item,i) in api[1].items">
+              <div class="rank">
+                <i class="el-icon-rank" style="float:left"></i>
+                <p style="text-align:center">点我拖拽</p>
+              </div>
+              <el-form-item label="成员id">
+                <el-input v-model="api[1].items[i].id" clearable></el-input>
+              </el-form-item>
+              <el-form-item label="成员名字">
+                <el-input v-model="api[1].items[i].name" clearable></el-input>
+              </el-form-item>
+              <el-form-item label="成员介绍">
+                <el-input v-model="api[1].items[i].dep" clearable></el-input>
+              </el-form-item>
+              <div style="margin:10px auto;text-align:center">
+                <el-button @click="api[1].items.splice(i, 1)">删除</el-button>
+              </div>
             </div>
-          </div>
+          </draggable>
           <el-button
             style="display:block;margin:10px auto"
             @click="api[1].items.push({ id: '', name: '', dep:'',avatar:''});"
           >添加</el-button>
         </el-tab-pane>
         <el-tab-pane label="首页时间轴" name="4">
-          <div class="box" :key="i" v-for="(item,i) in api[2].items">
-            <el-form-item label="时间轴时间">
-              <el-input v-model="api[2].items[i].time" clearable></el-input>
-            </el-form-item>
-            <el-form-item label="时间轴内容">
-              <el-input v-model="api[2].items[i].content" clearable></el-input>
-            </el-form-item>
-            <div style="margin:10px auto;text-align:center">
-              <el-button @click="api[2].items.splice(i, 1)">删除</el-button>
-              <el-button @click="move(2,i)">移动</el-button>
+          <draggable v-model="api[2].items" handle=".rank">
+            <div class="box" :key="i" v-for="(item,i) in api[2].items">
+              <div class="rank">
+                <i class="el-icon-rank" style="float:left"></i>
+                <p style="text-align:center">点我拖拽</p>
+              </div>
+              <el-form-item label="时间轴时间">
+                <el-input v-model="api[2].items[i].time" clearable></el-input>
+              </el-form-item>
+              <el-form-item label="时间轴内容">
+                <el-input v-model="api[2].items[i].content" clearable></el-input>
+              </el-form-item>
+              <div style="margin:10px auto;text-align:center">
+                <el-button @click="api[2].items.splice(i, 1)">删除</el-button>
+              </div>
             </div>
-          </div>
+          </draggable>
           <el-button
             style="display:block;margin:10px auto"
             @click="api[2].items.push({ time:'',content:''});"
@@ -75,11 +97,17 @@
 </template>
 
 <script>
+import draggable from "vuedraggable";
 export default {
+  components: {
+    draggable,
+  },
   data() {
     return {
       api: [],
       index: "1",
+      zapib: [],
+      zb: 0,
     };
   },
   created() {
@@ -111,30 +139,19 @@ export default {
     );
   },
   watch: {
-    api: function () {
-      console.log(this.api);
+    api: {
+      handler(val) {
+        this.zapib.push(JSON.stringify(this.api));
+        console.log(val);
+        this.zb = this.zapib.length;
+      },
+      // 这里是关键，代表递归监听 demo 的变化
+      deep: true,
     },
   },
   methods: {
-    move(o, i) {
-      this.api[o].items[i];
-      this.$prompt("请输入要转移的位置（例如：0）", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        inputPattern: /^\d*$/,
-        inputErrorMessage: "请输入一个数字",
-      }).then(({ value }) => {
-        if (value << 0 || value >= this.api[o].items.lenght) {
-          this.$message({
-            type: "error",
-            message: "数组没有该项",
-          });
-        } else {
-          var t = this.api[o].items[i];
-          this.api[o].items.splice(i, 1, this.api[o].items[value]);
-          this.api[o].items.splice(value, 1, t);
-        }
-      });
+    goBack() {
+      this.$router.go(-1);
     },
     to() {
       var _this = this;
@@ -160,6 +177,20 @@ export default {
           _this.$message.error("未知错误");
         });
     },
+    cz() {
+      if (this.zb > 1) {
+        console.log(this.zapib, this.zb);
+        this.api = JSON.parse(this.zapib[this.zb - 2]);
+        this.zb = this.zb - 1;
+      }
+    },
+    cy() {
+      if (this.zb < this.zapib.length) {
+        console.log(this.zapib, this.zb);
+        this.api = JSON.parse(this.zapib[this.zb]);
+        this.zb = this.zb + 1;
+      }
+    },
   },
 };
 </script>
@@ -168,5 +199,13 @@ export default {
 .box {
   border-bottom: 1px solid #1280ff;
   padding: 8px 10px;
+}
+.rank {
+  padding: 10px;
+  background: #00000022;
+  transition: 0.2s;
+}
+.rank:hover {
+  background: #00000055;
 }
 </style>

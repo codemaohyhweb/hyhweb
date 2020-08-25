@@ -1,20 +1,13 @@
 <template>
   <div id="app">
-    <navbar/>
     <router-view></router-view>
-    <zfooter/>
+    <el-backtop target="#app" :visibility-height="100"></el-backtop>
   </div>
 </template>
 
 <script>
-import navbar from './components/navbar'
-import zfooter from './components/footer'
 export default {
   name: "App",
-  components:{
-    navbar,
-    zfooter,
-  }
 };
 </script>
 
@@ -24,32 +17,34 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  overflow-y: auto;
+  height: 100vh;
 }
 * {
   margin: 0;
   padding: 0;
 }
-*::-webkit-scrollbar{
+*::-webkit-scrollbar {
   width: 8px;
 }
-*::-webkit-scrollbar-thumb{
+*::-webkit-scrollbar-thumb {
   background: #d3d8d8;
   border-radius: 5px;
 }
-.logo::after{
+.logo::after {
   content: "编程猫后援会";
   font-family: 站酷庆科黄油体;
   font-size: 20px;
-  color: #297EFF !important;
+  color: #297eff !important;
 }
-a{
+a {
   text-decoration: none;
   color: inherit;
 }
-a:hover{
-  color: #409EFF;
+a:hover {
+  color: #409eff;
 }
-.bgimg{
+.bgimg {
   background-position: center !important;
   background-size: cover !important;
 }
