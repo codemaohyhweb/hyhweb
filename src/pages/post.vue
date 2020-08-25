@@ -1,5 +1,5 @@
 <template>
-  <div class="post">
+  <div id="post">
     <navbar></navbar>
     <div class="r-community-r-detail--forum_container">
       <div class="r-community-r-detail--forum_title">{{post.title}}</div>
@@ -91,11 +91,12 @@
       </div>
       <div>
         <div class="p-write">
-          <writeset-vue v-model="rtext" />
+          <writeset-vue id="pwrite" v-model="rtext" />
+          <el-input id="pwrite2" v-model="rtext" style="display:block;width:90%;margin:0 auto" type="textarea" :rows="10"></el-input>
         </div>
         <div class="p-write-t">
-          <router-link targe="_blank" to="/post/167540">编程猫社区守则＞</router-link>
-          <el-button type="primary" @click="writepostr">发布回帖</el-button>
+          <router-link targe="_blank" to="/post/167540" style="margin-right:10px">编程猫社区守则＞</router-link>
+          <el-button type="primary" style="margin-right:20px" @click="writepostr">发布回帖</el-button>
         </div>
       </div>
     </div>
@@ -104,7 +105,7 @@
 </template>
 
 <script>
-import writesetVue from "../components/writeset.vue";
+import writesetVue from "../components/write/writeset.vue";
 import zfooter from "../components/footer";
 import navbar from "../components/navbar";
 export default {
@@ -200,11 +201,20 @@ export default {
 <style>
 @import url(../assets/css/post.css);
 .p-write {
-  height: 300px;
   overflow: auto;
 }
 .p-write-t {
   text-align: right;
   padding: 10px 0;
+}
+@media (max-width: 700px) {
+  #pwrite {
+    display: none;
+  }
+}
+@media (min-width: 700px) {
+  #pwrite2 {
+    display: none;
+  }
 }
 </style>

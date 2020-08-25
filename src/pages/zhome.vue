@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app">
     <div style="background:#eee;padding:3vw">
       <el-page-header @back="goBack" content="api数据管理"></el-page-header>
     </div>
@@ -93,6 +93,7 @@
         <el-button type="primary" style="display:block;width:100%" @click="to">上传</el-button>
       </el-form-item>
     </el-form>
+    <el-backtop target=".app" :visibility-height="100"></el-backtop>
   </div>
 </template>
 
@@ -196,6 +197,10 @@ export default {
 </script>
 
 <style>
+.app {
+  height: 100vh;
+  overflow-y: auto;
+}
 .box {
   border-bottom: 1px solid #1280ff;
   padding: 8px 10px;

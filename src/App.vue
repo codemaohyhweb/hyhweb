@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <el-backtop target="#app" :visibility-height="100"></el-backtop>
   </div>
 </template>
 
@@ -17,8 +16,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  overflow-y: auto;
-  height: 100vh;
 }
 * {
   margin: 0;

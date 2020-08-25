@@ -4,17 +4,17 @@
     <div class="b-head"></div>
     <div class="b-content">
       <div class="b-content-l" v-loading="loading">
-        <el-row class="bl-box" v-for="(bl,item) in blogs.items" :key="item">
+        <div class="bl-box" v-for="(bl,item) in blogs.items" :key="item">
           <router-link :to="{name:'blogs',path: '/blogs', query: { id: bl.id, }}">
-            <el-col :span="10">
+            <div class="bl-box-1">
               <div
                 v-if="bl.features['guide-leap']"
                 class="bl-img bgimg"
                 :style="'background-image:url('+bl.features['guide-leap']['article.default'].variables.thumbs+');'"
               ></div>
               <div v-if="!bl.features['guide-leap']" class="bl-img"></div>
-            </el-col>
-            <el-col :span="14">
+            </div>
+            <div class="bl-box-2">
               <div class="bl-content">
                 <div class="bl-content-head">
                   <i class="el-icon-time"></i>
@@ -25,9 +25,9 @@
                   <div class="bl-content-body-text">{{bl.content.blocks[0].data.text}}</div>
                 </div>
               </div>
-            </el-col>
+            </div>
           </router-link>
-        </el-row>
+        </div>
         <br />
         <el-pagination
           v-if="blogs.meta"
@@ -279,6 +279,24 @@ export default {
   .b-content-r {
     width: 100vw;
   }
+  .bl-box-1 {
+    width: 100% !important;
+    height: 50vw !important;
+  }
+  .bl-box-2 {
+    width: 100% !important;
+  }
+}
+.bl-box-1 {
+  width: 40%;
+  height: 130px;
+  display: inline-block;
+  vertical-align: top;
+}
+.bl-box-2 {
+  display: inline-block;
+  vertical-align: top;
+  width: 60%;
 }
 .b-content-l {
   vertical-align: top;
@@ -293,14 +311,12 @@ export default {
 }
 .bl-box {
   cursor: pointer;
-  height: 150px;
-  overflow: hidden;
   padding: 20px;
 }
 .bl-img {
   border-radius: 10px;
   width: 100%;
-  height: 130px;
+  height: 100%;
   margin: auto;
   background: #297eff;
 }
@@ -311,6 +327,9 @@ export default {
   padding: 10px 0;
   font-weight: 600;
   font-size: 18px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .bl-content-body-text {
   font-size: 15px;

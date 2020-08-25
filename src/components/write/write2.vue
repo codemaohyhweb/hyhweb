@@ -1,19 +1,15 @@
 <template>
   <div>
     <el-input v-model="title" style="display:block;margin:auto" placeholder="请输入标题(5-50字)"></el-input>
-    <br />
-    <editor-bar v-model="detail" :isClear="isClear" @change="change"></editor-bar>
-    <br />
-    <el-button type="primary" @click="post" style="display:block;margin:auto">发布</el-button>
+    <br>
+    <el-input v-model="content" style="display:block;margin:auto" type="textarea" :rows="10"></el-input>
+    <br>
+    <el-button type="primary" @click="post" style="width:100%;display:block;margin:auto">发布</el-button>
   </div>
 </template>
 
 <script>
-import EditorBar from "./writeset";
 export default {
-  components: {
-    EditorBar,
-  },
   data() {
     return {
       title: "",
