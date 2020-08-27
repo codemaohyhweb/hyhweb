@@ -21,12 +21,8 @@
         </el-menu-item>
       </el-menu>
     </div>
-    <el-dialog :close-on-click-modal="false" :visible.sync="sign_box" :width="log_box_w+'%'">
-      <el-tabs v-model="sign_name">
-        <el-tab-pane label="登录" name="in">
-          <signin />
-        </el-tab-pane>
-      </el-tabs>
+    <el-dialog title="登录" :close-on-click-modal="false" :visible.sync="sign_box" :width="log_box_w+'%'">
+      <signin/>
     </el-dialog>
     <el-drawer :visible.sync="drawer" direction="rtl" :with-header="false">
       <div style="width:300px">
@@ -185,4 +181,5 @@ export default {
     display: inline-block !important;
   }
 }
+
 </style>

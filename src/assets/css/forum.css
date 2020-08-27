@@ -10,9 +10,10 @@
 .c-post_list--post_body{
     list-style: none;
 }
-.c-post_list--post_body:hover {
+.c-post_list--post_body:hover{
     background: #eff3f5;
 }
+
 .c-post_list--post_container {
     padding: 23px 0 20px;
 }
@@ -50,4 +51,5 @@
     -ms-flex-align: center;
     align-items: center;
     margin: 20px 0 12px;
+    overflow: hidden;
 }

@@ -10,6 +10,11 @@
       class="demo-ruleForm"
       v-if="index==0"
     >
+      <div>
+        <i class="el-icon-warning-outline"></i>
+        使用编程猫账号登录
+      </div>
+        <br />
       <el-form-item prop="id">
         <el-input v-model="ruleForm.id" placeholder="用户名/手机号/邮箱"></el-input>
       </el-form-item>
@@ -23,6 +28,11 @@
         type="text"
         @click="$alert('目前还不支持手机验证码登录', '抱歉', { confirmButtonText: '确定'});"
       >手机验证码登录</el-button>
+      <a
+        style="float:right;display:block;padding:10px"
+        target="_blank"
+        href="https://shequ.codemao.cn"
+      >注册账号</a>
     </el-form>
     <el-form
       :model="ruleForm2"

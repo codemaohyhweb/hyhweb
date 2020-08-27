@@ -111,33 +111,37 @@ export default {
       zb: 0,
     };
   },
-  created() {
-    var ids = ["371087"];
+  /*created() {
+    var ids = [];
+    var s = [];
+    var settings = {
+      url:
+        "/baklibapi/articles/3cd6b2a0-86c1-409a-b0a1-24822c14a581?tenant_id=a5e31530-0273-48ba-985d-3f425ab577c1",
+      method: "GET",
+      timeout: 0,
+      headers: {
+        Authorization:
+          "Bearer 6e2b76bdf1493cbc7db23b57c3dedc75be40d0407230e2f022326ae54ae5adf5",
+        "Content-Type": "application/json",
+      },
+    };
+    this.$axios(settings).then(function (res) {
+      ids=JSON.parse(res.data.message.content.blocks[0].data.text)[4];
+      s=res.data.message.content.blocks[0].data.text;
+    });
     var _this = this;
     this.$axios({ method: "GET", url: "/codemaoapi/web/users/details" }).then(
       function (response) {
-        if (!ids.includes(response.data.id)) {
-          this.$router.push("/");
-        } else {
-          var settings = {
-            url:
-              "/baklibapi/articles/3cd6b2a0-86c1-409a-b0a1-24822c14a581?tenant_id=a5e31530-0273-48ba-985d-3f425ab577c1",
-            method: "GET",
-            timeout: 0,
-            headers: {
-              Authorization:
-                "Bearer 6e2b76bdf1493cbc7db23b57c3dedc75be40d0407230e2f022326ae54ae5adf5",
-              "Content-Type": "application/json",
-            },
-          };
-          _this.$axios(settings).then(function (res) {
-            _this.api = JSON.parse(
-              res.data.message.content.blocks[0].data.text
-            );
-          });
+        if (ids.includes(response.data.id)) {
+          _this.api=s;
+        }else{
+          _this.$router.push("/")
         }
       }
     );
+  },*/
+  created() {
+    var _this = this;
   },
   watch: {
     api: {

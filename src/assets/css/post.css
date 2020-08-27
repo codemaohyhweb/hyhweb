@@ -91,7 +91,10 @@
     padding: 20px 80px;
     border-bottom: 1px solid hsla(0,0%,91%,.5);
     font-size: 14px;
+    position: relative;
+    overflow: hidden;
     zoom: 1;
+    word-break: break-all;
 }
 .r-community-r-detail--forum_comments_container {
     padding: 0 40px;

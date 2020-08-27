@@ -26,14 +26,9 @@ export default new Router({
             component: () => import('./pages/blog.vue')
         },
         {
-            path: "/blogs",
+            path: "/blogs/:id",
             name: "blogs",
             component: () => import('./pages/blogs.vue')
-        },
-        {
-            path: "/codemaohyh",
-            name: "后台",
-            component: () => import('./pages/zhome.vue')
         },
     ]
 })

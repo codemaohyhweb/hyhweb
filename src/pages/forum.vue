@@ -6,21 +6,21 @@
         <div style="padding:10px">全部帖子（{{posts.total}}）</div>
         <el-row>
           <el-col v-for="(post,item) in posts.items" :key="item">
-            <li class="c-post_list--post_body">
-              <div class="c-post_list--post_container">
-                <div class="c-post_list--post_header">
-                  <a :href="'https://shequ.codemao.cn/user/'+post.user.id" target="_blank">
-                    <img :src="post.user.avatar_url" alt="头像" class="c-post_list--pointer" />
-                    <span class="c-post_list--pointer">{{post.user.nickname}}</span>
-                  </a>
-                </div>
-                <router-link class="forum_to" :to="'/post/'+post.id">
+            <router-link class="forum_to" :to="'/post/'+post.id" target="_blank">
+              <li class="c-post_list--post_body">
+                <div class="c-post_list--post_container">
+                  <div class="c-post_list--post_header">
+                    <a :href="'https://shequ.codemao.cn/user/'+post.user.id" target="_blank">
+                      <img :src="post.user.avatar_url" alt="头像" class="c-post_list--pointer" />
+                      <span class="c-post_list--pointer">{{post.user.nickname}}</span>
+                    </a>
+                  </div>
                   <div class="c-post_list--post_title">
                     <h3 class="c-post_list--pointer">{{post.title}}</h3>
                   </div>
-                </router-link>
-              </div>
-            </li>
+                </div>
+              </li>
+            </router-link>
           </el-col>
         </el-row>
         <el-row style="padding:10px 0" type="flex" justify="center">
@@ -90,7 +90,14 @@
             icon="el-icon-edit"
             @click="write"
           >发布帖子</el-button>
-          <el-button id="write2" size="bigger" @click="write2" type="primary" icon="el-icon-edit" circle></el-button>
+          <el-button
+            id="write2"
+            size="bigger"
+            @click="write2"
+            type="primary"
+            icon="el-icon-edit"
+            circle
+          ></el-button>
         </div>
       </div>
     </div>

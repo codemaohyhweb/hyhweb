@@ -64,7 +64,7 @@
               <div class="h-member-a">
                 <a
                   style="display:block"
-                  :href="'https://shequ.codemao.cn/user/'+m.id"
+                  :href="m.to"
                   target="_blank"
                 >前去拜访</a>
               </div>
@@ -117,37 +117,15 @@ export default {
     this.getapi();
   },
   methods: {
-    getavaurl() {
-      var _this = this;
-      for (var i = 0; i < this.api[1].items.length; i++) {
-        this.$axios
-          .get("/codemaoapi/api/user/info/detail/" + this.api[1].items[i].id)
-          .then(function (res) {
-            for (var s = 0; s < _this.api[1].items.length; s++) {
-              if (_this.api[1].items[s].id == res.data.data.userInfo.user.id) {
-                _this.api[1].items[s].avatar =
-                  res.data.data.userInfo.user.avatar;
-              }
-            }
-          });
-      }
-    },
     getapi() {
       var settings = {
         url:
-          "/baklibapi/articles/3cd6b2a0-86c1-409a-b0a1-24822c14a581?tenant_id=a5e31530-0273-48ba-985d-3f425ab577c1",
+          "/api/index",
         method: "GET",
-        timeout: 0,
-        headers: {
-          Authorization:
-            "Bearer 6e2b76bdf1493cbc7db23b57c3dedc75be40d0407230e2f022326ae54ae5adf5",
-          "Content-Type": "application/json",
-        },
       };
       var _this = this;
       this.$axios(settings).then(function (res) {
-        _this.api = JSON.parse(res.data.message.content.blocks[0].data.text);
-        _this.getavaurl();
+        _this.api = res.data;
       });
     },
   },

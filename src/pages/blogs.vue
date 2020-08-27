@@ -5,23 +5,11 @@
     <div class="bs-box">
       <div style="padding:5vw">
         <div class="bs-head">
-          <h1>{{blogs.name}}</h1>
-          <p>{{stime(blogs.updated_at)}}</p>
+          <h1>{{blogs.title}}</h1>
+          <p>{{stime(blogs.time)}}</p>
         </div>
         <div class="bs-content">
-          <div v-for="(c,index) in blogs.content.blocks" :key="index">
-            <el-image
-              v-if="c.type=='qiniuImage'"
-              style="width: 100%"
-              :src="blogs.content.blocks[0].data.url"
-              :preview-src-list="[blogs.content.blocks[0].data.url]"
-            />
-            <p
-              v-if="!c.type || c.type=='paragraph'"
-              :style="'text-align:'+c.data.alignment"
-              v-html="c.data.text"
-            ></p>
-          </div>
+          <div v-html="blogs.content"></div>
         </div>
       </div>
     </div>
@@ -32,6 +20,7 @@
 <script>
 import zfooter from "../components/footer";
 import navbar from "../components/navbar";
+import marked from "marked";
 export default {
   components: {
     navbar,
@@ -44,67 +33,25 @@ export default {
   },
   methods: {
     stime(time) {
-      Date.prototype.format = function (format) {
-        var o = {
-          "M+": this.getMonth() + 1, //month
-          "d+": this.getDate(), //day
-          "h+": this.getHours(), //hour
-          "m+": this.getMinutes(), //minute
-          "s+": this.getSeconds(), //second
-          "q+": Math.floor((this.getMonth() + 3) / 3), //quarter
-          S: this.getMilliseconds(), //millisecond
-        };
-        if (/(y+)/i.test(format)) {
-          format = format.replace(
-            RegExp.$1,
-            (this.getFullYear() + "").substr(4 - RegExp.$1.length)
-          );
-        }
-        for (var k in o) {
-          if (new RegExp("(" + k + ")").test(format)) {
-            format = format.replace(
-              RegExp.$1,
-              RegExp.$1.length == 1
-                ? o[k]
-                : ("00" + o[k]).substr(("" + o[k]).length)
-            );
-          }
-        }
-        return format;
-      };
-      var t = [
-        time.split("-")[0],
-        time.split("-")[1],
-        time.split("-")[2].split("T")[0],
-        time.split("-")[2].split("T")[1].split(":")[0],
-        time.split("-")[2].split("T")[1].split(":")[1],
-        time.split("-")[2].split("T")[1].split(":")[2].split(".")[0],
-      ];
-      var s = [
-        new Date().format("yyyy"),
-        new Date().format("MM"),
-        new Date().format("dd"),
-        new Date().format("hh"),
-        new Date().format("mm"),
-        new Date().format("ss"),
-      ];
+      var s = Math.round(new Date() / 1000);
       var r = "";
-      for (var i = 0; i < t.length; i++) {
-        var q = t[i];
-        var p = s[i];
-        if (p - q > 0) {
-          if (i == 0 || i == 1 || i == 2) {
-            r = t[0] + "-" + t[1] + "-" + t[2];
-            break;
-          } else if (i == 3) {
-            r = "大约" + (s[3] - t[3]) + "小时前";
-            break;
-          } else if (i == 4) {
-            r = "大约" + (s[4] - t[4]) + "分钟前";
-            break;
+      //计算时间差
+      var timediff = s - time;
+      var days = (timediff / 86400).toFixed();
+      if (days > 1) {
+        r = new Date(time).toLocaleString();
+      } else {
+        var remain = timediff % 86400;
+        var hours = (remain / 3600).toFixed();
+        if (hours >= 1) {
+          r = hours + "小时前";
+        } else {
+          remain = remain % 3600;
+          var mins = (remain / 60).toFixed();
+          if (mins >= 2) {
+            r = hours + "分钟前";
           } else {
             r = "刚刚";
-            break;
           }
         }
       }
@@ -113,19 +60,11 @@ export default {
     getblog() {
       var _this = this;
       this.$axios({
-        url:
-          "/baklibapi/articles/" +
-          _this.$route.query.id +
-          "?tenant_id=a5e31530-0273-48ba-985d-3f425ab577c1",
+        url: "/api/blogs/content/" + _this.$route.params.id,
         method: "GET",
-        timeout: 0,
-        headers: {
-          Authorization:
-            "Bearer 6e2b76bdf1493cbc7db23b57c3dedc75be40d0407230e2f022326ae54ae5adf5",
-          "Content-Type": "application/json",
-        },
       }).then(function (res) {
-        _this.blogs = res.data.message;
+        _this.blogs = res.data[0];
+        _this.blogs.content = marked(res.data[0].content);
       });
     },
   },
@@ -138,6 +77,9 @@ export default {
 <style>
 .bs-content {
   line-height: 30px;
+}
+.bs-content img {
+  width: 100%;
 }
 .bs-box {
   width: 70vw;

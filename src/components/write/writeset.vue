@@ -159,7 +159,6 @@ export default {
         "quote", // 引用
         "emoticon", // 表情
         "image", // 插入图片
-        "table", // 表格
         "code", // 插入代码
       ];
 

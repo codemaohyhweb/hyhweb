@@ -9,7 +9,7 @@
         <i
           class="r-community-r-detail--icon_comment"
         ></i>
-        {{post.n_comments}}
+        {{post.n_replies}}
       </div>
       <div class="r-community-r-detail--forum_user_info">
         <div class="r-community-r-detail--user_face">
@@ -21,10 +21,11 @@
         <div class="r-community-r-detail--author">
           <a
             class="r-community-r-detail--author_link"
+            target="_blank"
             :href="'https://shequ.codemao.cn/user/'+post.user.id"
           >{{post.user.nickname}}</a>
         </div>
-        <p class="r-community-r-detail--publish_time" v-format="'YYYY-MM-DD'">{{post.created_at}}</p>
+        <p class="r-community-r-detail--publish_time">{{stime(post.created_at)}}</p>
       </div>
       <div class="r-community-r-detail--forum_content" v-html="post.content"></div>
       <el-button type="primary" style="margin:10px auto;display:block" @click="bottom()">发布回帖</el-button>
@@ -53,8 +54,7 @@
               <p class="c-comment-c-comment_item--content" v-html="postc.content"></p>
               <p
                 class="c-comment-c-comment_item--content_bottom"
-                v-format="'YYYY-MM-DD'"
-              >{{postc.created_at}}</p>
+              >{{stime(postc.created_at)}}</p>
               <div
                 class="c-comment-c-comment_reply--reply_container"
                 v-for="(postcr,index) in postc.earliest_comments"
@@ -79,8 +79,7 @@
                       </div>
                       <p
                         class="c-comment-c-comment_reply--content_bottom"
-                        v-format="'YYYY-MM-DD'"
-                      >{{postcr.created_at}}</p>
+                      >{{stime(postcr.created_at)}}</p>
                     </div>
                   </div>
                 </div>
@@ -92,7 +91,13 @@
       <div>
         <div class="p-write">
           <writeset-vue id="pwrite" v-model="rtext" />
-          <el-input id="pwrite2" v-model="rtext" style="display:block;width:90%;margin:0 auto" type="textarea" :rows="10"></el-input>
+          <el-input
+            id="pwrite2"
+            v-model="rtext"
+            style="display:block;width:90%;margin:0 auto"
+            type="textarea"
+            :rows="10"
+          ></el-input>
         </div>
         <div class="p-write-t">
           <router-link targe="_blank" to="/post/167540" style="margin-right:10px">编程猫社区守则＞</router-link>
@@ -123,6 +128,31 @@ export default {
     };
   },
   methods: {
+    stime(time) {
+      var s = Math.round(new Date() / 1000);
+      var r = "";
+      //计算时间差
+      var timediff = s - time;
+      var days = (timediff / 86400).toFixed();
+      if (days > 1) {
+        r = new Date(time).toLocaleString();
+      } else {
+        var remain = timediff % 86400;
+        var hours = (remain / 3600).toFixed();
+        if (hours >= 1) {
+          r = hours + "小时前";
+        } else {
+          remain = remain % 3600;
+          var mins = (remain / 60).toFixed();
+          if (mins >= 2) {
+            r = hours + "分钟前";
+          } else {
+            r = "刚刚";
+          }
+        }
+      }
+      return r;
+    },
     bottom() {
       window.scrollTo(0, document.body.clientHeight - 1000);
     },
