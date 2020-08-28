@@ -29,5 +29,5 @@ npm run lint
 * Leo韩
 * 饼干控
 * 橙子
-* 酸钠Sodium
+* SodiumCode
 * 追求
