@@ -28,8 +28,8 @@ npm run lint
 [点我查看](https://www.codemaohyh.cn)
 
 ## 制作团队
-* Leo韩
+* Lai追求
+* Leo韩 
+* SodiumCode
 * 饼干控
 * 橙子
-* SodiumCode
-* 追求
