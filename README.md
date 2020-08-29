@@ -23,7 +23,7 @@ npm run lint
 ```
 
 ## 本项目网址/后援会官方网站
-[点我查看](www.codemaohyh.cn)
+[点我查看](https://www.codemaohyh.cn)
 
 ## 制作团队
 * Leo韩
