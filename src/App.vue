@@ -31,7 +31,6 @@ export default {
 }
 .logo::after {
   content: "编程猫后援会";
-  font-family: 站酷庆科黄油体;
   font-size: 20px;
   color: #297eff !important;
 }
