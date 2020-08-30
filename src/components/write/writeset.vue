@@ -201,16 +201,16 @@ export default {
   margin: 0 auto;
   position: relative;
   z-index: 0;
+  border-radius: 10px;
 }
 .toolbar {
-  border: 1px solid #ccc;
   position: sticky;
   top: 0;
   z-index: 10001;
   background: #fff;
 }
 .text {
-  border: 1px solid #ccc;
-  min-height: 500px;
+  border: 1px solid #dddddd;
+  min-height: 400px;
 }
 </style>

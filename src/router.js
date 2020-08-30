@@ -30,5 +30,10 @@ export default new Router({
             name: "blogs",
             component: () => import('./pages/blogs.vue')
         },
+        {
+            path: "/post_err",
+            name: "post_err",
+            component: () => import('./pages/post_err.vue')
+        },
     ]
 })

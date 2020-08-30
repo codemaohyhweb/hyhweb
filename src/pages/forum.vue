@@ -204,7 +204,7 @@ export default {
   position: relative;
   margin: 30px auto;
   border-radius: 10px;
-  box-shadow: 0 10px 33px rgba(9, 16, 43, 0.15);
+  background: #ffffff;
 }
 
 @media (max-width: 700px) {

@@ -39,7 +39,7 @@ export default {
       var timediff = s - time;
       var days = (timediff / 86400).toFixed();
       if (days > 1) {
-        r = new Date(time).toLocaleString();
+        r = new Date(parseInt(time) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
       } else {
         var remain = timediff % 86400;
         var hours = (remain / 3600).toFixed();

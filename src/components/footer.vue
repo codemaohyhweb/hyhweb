@@ -8,15 +8,18 @@
           <div class="footer-item-p">
             <a href="https://shequ.codemao.cn" target="_blank" rel="noopener noreferrer">编程猫社区</a>
           </div>
-        </div>
-        <div class="footer-item">
-          <div class="footer-item-h">联系我们</div>
           <div class="footer-item-p">
             <a
               href="https://qm.qq.com/cgi-bin/qm/qr?k=nT-42kovrX3KEPoiwo8DlERw27LGmBUu&jump_from=webapi"
               target="_blank"
               rel="noopener noreferrer"
             >加入我们</a>
+          </div>
+        </div>
+        <div class="footer-item">
+          <div class="footer-item-h">联系我们</div>
+          <div class="footer-item-p">
+            <a href="/#/post_err" target="_blank" rel="noopener noreferrer">反馈问题</a>
           </div>
         </div>
         <div class="footer-item">
@@ -36,7 +39,10 @@
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <el-image class="footer-other-item-icon" :src="require('../assets/img/bilibili.svg')"></el-image>
+                <el-image
+                  class="footer-other-item-icon"
+                  :src="require('../assets/img/bilibili.svg')"
+                ></el-image>
               </a>
             </div>
             <div class="footer-other-item">
@@ -121,9 +127,10 @@ export default {
   line-height: 100px;
   display: inline-block;
   vertical-align: top;
-  color: #fff;
+  color: #fff !important;
 }
 .footer-other-item {
+  color: #bbb;
   width: 100px;
   text-align: center;
   height: 100px;
