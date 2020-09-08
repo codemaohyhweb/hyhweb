@@ -32,6 +32,6 @@ npm run lint
 
 ## 其他成员
 * [Leo韩（编程猫后援会会长）](https://shequ.codemao.cn/user/1379069) 
-* [SodiumCode（美工）]
-* [饼干控（域名解析）]
+* [SodiumCode（美工）]()
+* [饼干控（域名解析）]()
 * 橙子
