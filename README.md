@@ -27,9 +27,11 @@ npm run lint
 ## 本项目网址/后援会官方网站
 [点我查看](http://www.codemaohyh.cn)
 
-## 制作团队
-* Lai追求
-* Leo韩 
-* SodiumCode
-* 饼干控
+## 制作成员
+* [Lai追求（主要开发成员）](https://github.com/LaiPursuit)
+
+## 其他成员
+* [Leo韩（编程猫后援会会长）](https://shequ.codemao.cn/user/1379069) 
+* [SodiumCode（美工）]()
+* [饼干控（域名解析）]()
 * 橙子
