@@ -5,8 +5,11 @@ import { setCookie } from './utils.js';
 
 const mutations = {
     getuser() {
-        axios({ method: "GET", url: "/codemaoapi/web/users/details" }).then(function (response) {
+        axios({ method: "GET", url: "/codemaoapi/web/users/details" }).then((response) => {
             state.user = response.data;
+            axios({ method: "GET", url: "/api/statistics/user/data/", headers: { "user": state.user.id } }).then(() => {
+                console.log("欢迎！")
+            })
         }).catch(function () {
             console.log("用户未登录")
         })
@@ -23,9 +26,9 @@ const mutations = {
                 el.Message.success('登录成功');
                 state.user = response.data.user_info;
                 setCookie({ key: 'auth', value: response.data.auth.token });
-                setTimeout(function(){
+                setTimeout(function () {
                     window.location.reload();
-                },2000)
+                }, 2000)
             } else {
                 el.Message.error('用户或密码错误');
             }
@@ -56,15 +59,15 @@ const mutations = {
             data: data,
         }).then(function () {
             el.Message.success("发布成功");
-            setTimeout(function(){
+            setTimeout(function () {
                 window.location.reload();
-            },2000)
+            }, 2000)
         }).catch(function (error) {
             el.Message.error("未知错误")
             console.log(error)
-            setTimeout(function(){
+            setTimeout(function () {
                 window.location.reload();
-            },2000)
+            }, 2000)
         })
     }
 };

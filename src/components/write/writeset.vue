@@ -53,7 +53,6 @@ export default {
   },
   methods: {
     seteditor() {
-      // http://192.168.2.125:8080/admin/storage/create
       this.editor = new E(this.$refs.toolbar, this.$refs.editor);
       this.editor.customConfig.uploadImgShowBase64 = false; // base 64 存储图片
       this.editor.customConfig.uploadImgServer = "https://upload.qiniup.com/"; // 配置服务器端地址
