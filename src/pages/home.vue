@@ -1,91 +1,101 @@
 <template>
   <div class="home">
     <navbar></navbar>
-    <div class="h-box" style="padding:40px 0 30px 0;background:#f2f4f8">
-      <el-carousel
-        trigger="click"
-        style="margin:0 auto;width:1000px"
-        :interval="4000"
-        v-if="col<12"
-        type="card"
-        height="250px"
-      >
-        <el-carousel-item
-          v-for="(rc,index) in api[0].items"
-          :key="index"
-          style="border-radius: 10px"
+    <div v-if="!loading">
+      <div class="h-box" style="padding:40px 0 30px 0;background:#f2f4f8">
+        <el-carousel
+          trigger="click"
+          style="margin:0 auto;width:1000px"
+          :interval="4000"
+          v-if="col<12"
+          type="card"
+          height="250px"
         >
-          <a :href="rc.href" target="_blank">
-            <div class="bgimg" :style="'width:100%;height:100%;background-image:url('+rc.src+');'"></div>
-          </a>
-        </el-carousel-item>
-      </el-carousel>
-      <el-carousel
-        trigger="click"
-        style="margin:0 auto;width:90vw"
-        :interval="4000"
-        v-if="col>=12"
-        height="45vw"
-      >
-        <el-carousel-item
-          v-for="(rc,index) in api[0].items"
-          :key="index"
-          style="border-radius: 10px"
+          <el-carousel-item
+            v-for="(rc,index) in api[0].items"
+            :key="index"
+            style="border-radius: 10px"
+          >
+            <a :href="rc.href" target="_blank">
+              <div
+                class="bgimg"
+                :style="'width:100%;height:100%;background-image:url('+rc.src+');'"
+              ></div>
+            </a>
+          </el-carousel-item>
+        </el-carousel>
+        <el-carousel
+          trigger="click"
+          style="margin:0 auto;width:90vw"
+          :interval="4000"
+          v-if="col>=12"
+          height="45vw"
         >
-          <a :href="rc.href" target="_blank">
-            <div class="bgimg" :style="'width:100%;height:100%;background-image:url('+rc.src+');'"></div>
-          </a>
-        </el-carousel-item>
-      </el-carousel>
-    </div>
-    <div class="h-box">
-      <div class="h-box-h">关于我们</div>
-      <div class="h-ab-box">
-        <div class="h-ab-logo">
-          <el-image class="h-ab-logo-img" :src="require('../assets/img/logo.jpg')"></el-image>
-        </div>
-        <div class="h-ab-content">
-          <div class="h-ab-content-box">{{api[3].content}}</div>
+          <el-carousel-item
+            v-for="(rc,index) in api[0].items"
+            :key="index"
+            style="border-radius: 10px"
+          >
+            <a :href="rc.href" target="_blank">
+              <div
+                class="bgimg"
+                :style="'width:100%;height:100%;background-image:url('+rc.src+');'"
+              ></div>
+            </a>
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+      <div class="h-box">
+        <div class="h-box-h">关于我们</div>
+        <div class="h-ab-box">
+          <div class="h-ab-logo">
+            <el-image class="h-ab-logo-img" :src="require('../assets/img/logo.jpg')"></el-image>
+          </div>
+          <div class="h-ab-content">
+            <div class="h-ab-content-box">{{api[3].content}}</div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="h-box" style="background:#f2f4f8">
-      <div class="h-box-h">重要成员</div>
-      <el-row :gutter="24" style="padding:0 5vw;padding-bottom:5vw">
-        <el-col style="margin-bottom:20px" v-for="(m,item) in api[1].items" :key="item" :span="col">
-          <div class="h-member-box">
-            <br />
-            <div class="h-member-head">
-              <el-image class="h-memeber-head_img" :src="m.avatar" fit="cover"></el-image>
-            </div>
-            <div class="h-member-text">
-              <div class="h-member-h">{{m.name}}</div>
-              <div class="h-member-p">{{m.dep}}</div>
-              <div class="h-member-a">
-                <a
-                  style="display:block"
-                  :href="m.to"
-                  target="_blank"
-                >前去拜访</a>
+      <div class="h-box" style="background:#f2f4f8">
+        <div class="h-box-h">重要成员</div>
+        <el-row :gutter="24" style="padding:0 5vw;padding-bottom:5vw">
+          <el-col
+            style="margin-bottom:20px"
+            v-for="(m,item) in api[1].items"
+            :key="item"
+            :span="col"
+          >
+            <div class="h-member-box">
+              <br />
+              <div class="h-member-head">
+                <el-image class="h-memeber-head_img" :src="m.avatar" fit="cover"></el-image>
+              </div>
+              <div class="h-member-text">
+                <div class="h-member-h">{{m.name}}</div>
+                <div class="h-member-p">{{m.dep}}</div>
+                <div class="h-member-a">
+                  <a style="display:block" :href="m.to" target="_blank">前去拜访</a>
+                </div>
               </div>
             </div>
-          </div>
-        </el-col>
-      </el-row>
+          </el-col>
+        </el-row>
+      </div>
+      <div class="h-box">
+        <div class="h-box-h">时间轴</div>
+        <el-timeline :reverse="true" style="width:50%;margin:auto;text-align:left">
+          <el-timeline-item
+            v-for="(a, index) in api[2].items"
+            :key="index"
+            :timestamp="a.time"
+            placement="top"
+          >
+            <el-card>{{a.content}}</el-card>
+          </el-timeline-item>
+        </el-timeline>
+      </div>
     </div>
-    <div class="h-box">
-      <div class="h-box-h">时间轴</div>
-      <el-timeline :reverse="true" style="width:50%;margin:auto;text-align:left">
-        <el-timeline-item
-          v-for="(a, index) in api[2].items"
-          :key="index"
-          :timestamp="a.time"
-          placement="top"
-        >
-          <el-card>{{a.content}}</el-card>
-        </el-timeline-item>
-      </el-timeline>
-    </div>
+    <div style="height:100vh" v-loading="loading" v-if="loading"></div>
     <zfooter></zfooter>
   </div>
 </template>
@@ -102,6 +112,7 @@ export default {
     return {
       col: 6,
       api: [],
+      loading: true,
     };
   },
   created() {
@@ -119,14 +130,17 @@ export default {
   methods: {
     getapi() {
       var settings = {
-        url:
-          "/api/index",
+        url: "/api/index",
         method: "GET",
       };
-      var _this = this;
-      this.$axios(settings).then(function (res) {
-        _this.api = res.data;
-      });
+      this.$axios(settings)
+        .then((res) => {
+          this.api = res.data;
+          this.loading=false;
+        })
+        .catch(() => {
+          this.$message.error("未知错误！");
+        });
     },
   },
   mounted() {

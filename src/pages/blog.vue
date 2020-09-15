@@ -4,43 +4,45 @@
     <div class="b-head"></div>
     <div class="b-content">
       <div class="b-content-l" v-loading="loading">
-        <el-page-header class="bl-box" @back="getblog(1);" v-if="issearch" content="搜索结果"></el-page-header>
-        <div class="bl-none" v-if="!blogs.items.length"></div>
-        <div class="bl-box" v-for="(bl,item) in blogs.items" :key="item">
-          <router-link :to="'/blogs/'+bl.id">
-            <div class="bl-box-1">
-              <div
-                v-if="bl.bgurl"
-                class="bl-img bgimg"
-                :style="'background-image:url('+bl.bgurl+');'"
-              ></div>
-              <div v-if="!bl.bgurl" class="bl-img"></div>
-            </div>
-            <div class="bl-box-2">
-              <div class="bl-content">
-                <div class="bl-content-head">
-                  <i class="el-icon-time"></i>
-                  {{stime(bl.time)}}
-                </div>
-                <div class="bl-content-body">
-                  <div class="bl-content-body-title">{{bl.title}}</div>
-                  <div class="bl-content-body-text">{{bl.content}}</div>
+        <div v-if="!loading">
+          <el-page-header class="bl-box" @back="getblog(1);" v-if="issearch" content="搜索结果"></el-page-header>
+          <div class="bl-none" v-if="!blogs.items.length"></div>
+          <div class="bl-box" v-for="(bl,item) in blogs.items" :key="item">
+            <router-link :to="'/blogs/'+bl.id">
+              <div class="bl-box-1">
+                <div
+                  v-if="bl.bgurl"
+                  class="bl-img bgimg"
+                  :style="'background-image:url('+bl.bgurl+');'"
+                ></div>
+                <div v-if="!bl.bgurl" class="bl-img"></div>
+              </div>
+              <div class="bl-box-2">
+                <div class="bl-content">
+                  <div class="bl-content-head">
+                    <i class="el-icon-time"></i>
+                    {{stime(bl.time)}}
+                  </div>
+                  <div class="bl-content-body">
+                    <div class="bl-content-body-title">{{bl.title}}</div>
+                    <div class="bl-content-body-text">{{bl.content}}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </router-link>
+            </router-link>
+          </div>
+          <br />
+          <el-pagination
+            v-if="blogs.meta"
+            :page-size="10"
+            style="text-align: center;"
+            @current-change="topost"
+            background
+            layout="prev, pager, next"
+            :total="blogs.total"
+          />
+          <br />
         </div>
-        <br />
-        <el-pagination
-          v-if="blogs.meta"
-          :page-size="10"
-          style="text-align: center;"
-          @current-change="topost"
-          background
-          layout="prev, pager, next"
-          :total="blogs.total"
-        />
-        <br />
       </div>
       <div class="b-content-r">
         <div class="br-box">
@@ -82,7 +84,9 @@ export default {
       var timediff = s - time;
       var days = (timediff / 86400).toFixed();
       if (days > 1) {
-        r = new Date(parseInt(time) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+        r = new Date(parseInt(time) * 1000)
+          .toLocaleString()
+          .replace(/:\d{1,2}$/, " ");
       } else {
         var remain = timediff % 86400;
         var hours = (remain / 3600).toFixed();
@@ -198,10 +202,12 @@ export default {
 .b-content-l {
   vertical-align: top;
   display: inline-block;
+  min-height: 200px;
 }
 .b-content-r {
   vertical-align: top;
   display: inline-block;
+  min-height: 200px;
 }
 .br-box {
   padding: 20px 60px;

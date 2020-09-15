@@ -1,7 +1,8 @@
 <template>
   <div id="post">
     <navbar></navbar>
-    <div class="r-community-r-detail--forum_container">
+    <div style="height:100vh" v-if="loading" v-loading="loading"></div>
+    <div class="r-community-r-detail--forum_container" v-if="!loading">
       <div class="r-community-r-detail--forum_title">{{post.title}}</div>
       <div class="r-community-r-detail--forum_info">
         <i class="r-community-r-detail--icon_view"></i>
@@ -52,9 +53,7 @@
                 >{{postc.user.nickname}}</a>
               </div>
               <p class="c-comment-c-comment_item--content" v-html="postc.content"></p>
-              <p
-                class="c-comment-c-comment_item--content_bottom"
-              >{{stime(postc.created_at)}}</p>
+              <p class="c-comment-c-comment_item--content_bottom">{{stime(postc.created_at)}}</p>
               <div
                 class="c-comment-c-comment_reply--reply_container"
                 v-for="(postcr,index) in postc.earliest_comments"
@@ -125,6 +124,7 @@ export default {
       postr: [],
       rtext: "",
       rrtext: "",
+      loading: true,
     };
   },
   methods: {
@@ -135,7 +135,9 @@ export default {
       var timediff = s - time;
       var days = (timediff / 86400).toFixed();
       if (days > 1) {
-        r = new Date(parseInt(time) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+        r = new Date(parseInt(time) * 1000)
+          .toLocaleString()
+          .replace(/:\d{1,2}$/, " ");
       } else {
         var remain = timediff % 86400;
         var hours = (remain / 3600).toFixed();
@@ -157,15 +159,14 @@ export default {
       window.scrollTo(0, document.body.clientHeight - 1000);
     },
     getpostr(page) {
-      var _this = this;
       this.$axios(
         "/codemaoapi/web/forums/posts/" +
           this.$route.params.id +
           "/replies?page=" +
           page +
           "&limit=10&sort=-created_at"
-      ).then(function (res) {
-        _this.postr = res.data;
+      ).then((res) => {
+        this.postr = res.data;
       });
     },
     writepostr() {
@@ -175,7 +176,6 @@ export default {
         var data = {
           content: this.rtext,
         };
-        var _this = this;
         this.$axios({
           method: "POST",
           url:
@@ -184,12 +184,12 @@ export default {
             "/replies",
           data: data,
         })
-          .then(function () {
-            _this.$message.success("回复成功~");
+          .then(() => {
+            this.$message.success("回复成功~");
             window.location.reload();
           })
-          .catch(function () {
-            _this.$message.error("未知错误");
+          .catch(() => {
+            this.$message.error("未知错误");
           });
       }
     },
@@ -206,21 +206,20 @@ export default {
     },
   },
   created() {
-    var _this = this;
     this.$axios(
       "/codemaoapi/web/forums/posts/" + this.$route.params.id + "/details"
-    ).then(function (res) {
-      _this.post = res.data;
+    ).then((res) => {
+      this.post = res.data;
+      this.loading = false;
     });
     this.getpostr(1);
   },
   watch: {
     "$route.params.id": function () {
-      var _this = this;
       this.$axios(
         "/codemaoapi/web/forums/posts/" + this.$route.params.id + "/details"
-      ).then(function (res) {
-        _this.post = res.data;
+      ).then((res) => {
+        this.post = res.data;
       });
       this.getpostr(1);
     },
