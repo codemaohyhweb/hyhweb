@@ -28,7 +28,7 @@
             <a href="https://www.codemao.cn" target="_blank" rel="noopener noreferrer">编程猫</a>
           </div>
           <div class="footer-item-p">
-            <a href="https://www.codesra.cn" target="_blank" rel="noopener noreferrer">源码星球</a>
+            <a target="_blank" rel="noopener noreferrer">曈星工作室</a>
           </div>
         </div>
         <div class="footer-item">
