@@ -31,7 +31,7 @@ npm run lint
 * [Lai追求（主要开发成员）](https://github.com/LaiPursuit)
 
 ## 其他成员
-* [Leo韩（编程猫后援会会长）](https://shequ.codemao.cn/user/1379069) 
+* [Leo韩（编程猫后援会会长）](https://github.com/the-leohan) 
 * [SodiumCode（美工）]()
-* [饼干控（域名解析）]()
+* [饼干控（打杂）]()
 * 橙子
