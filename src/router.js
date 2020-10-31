@@ -35,5 +35,10 @@ export default new Router({
             name: "post_err",
             component: () => import('./pages/post_err.vue')
         },
+        {
+            path: "*",
+            name: "e404",
+            component: () => import('./pages/404.vue')
+        },
     ]
 })
