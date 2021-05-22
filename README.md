@@ -34,4 +34,3 @@ npm run lint
 * [Leo韩（编程猫后援会会长）](https://github.com/the-leohan) 
 * [SodiumCode（美工）]()
 * [饼干控（打杂）]()
-* 橙子
