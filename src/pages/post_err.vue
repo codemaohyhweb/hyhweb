@@ -76,6 +76,7 @@ export default {
 
                 if (res.status == 201) {
                   this.$message.success("已成功提交反馈");
+                  this.$router.push("/");
                 } else {
                   this.$message.info("操作过于频繁！");
                 }
