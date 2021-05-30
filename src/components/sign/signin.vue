@@ -148,7 +148,7 @@ export default {
         } else {
           this.tackBtn();
           this.$axios
-            .post("/api/captcha/rule", { identity: this.signForm2.phone })
+            .post("/api/api/captcha/rule", { identity: this.signForm2.phone })
             .then(function (response) {
               console.log(response);
             });

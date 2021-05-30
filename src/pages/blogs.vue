@@ -60,7 +60,7 @@ export default {
     getblog() {
       var _this = this;
       this.$axios({
-        url: "/api/blogs/content/" + _this.$route.params.id,
+        url: "/api/api/blogs/content/" + _this.$route.params.id,
         method: "GET",
       }).then(function (res) {
         _this.blogs = res.data[0];

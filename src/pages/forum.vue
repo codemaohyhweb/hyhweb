@@ -139,7 +139,7 @@ export default {
       this.$axios({
         method: "GET",
         url:
-          "/codemaoapi/web/works/subjects/labels/1053/posts?keyword=" +
+          "/api/codemaoapi/web/works/subjects/labels/1053/posts?keyword=" +
           this.search_text +
           "&limit=20&offset=" +
           (p - 1) * 20,
@@ -158,7 +158,7 @@ export default {
       this.$axios({
         method: "GET",
         url:
-          "/codemaoapi/web/works/subjects/labels/1053/posts?limit=20&offset=" +
+          "/api/codemaoapi/web/works/subjects/labels/1053/posts?limit=20&offset=" +
           (p - 1) * 20,
       })
         .then((response) => {

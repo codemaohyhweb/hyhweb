@@ -160,7 +160,7 @@ export default {
     },
     getpostr(page) {
       this.$axios(
-        "/codemaoapi/web/forums/posts/" +
+        "/api/codemaoapi/web/forums/posts/" +
           this.$route.params.id +
           "/replies?page=" +
           page +
@@ -179,7 +179,7 @@ export default {
         this.$axios({
           method: "POST",
           url:
-            "/codemaoapi/web/forums/posts/" +
+            "/api/codemaoapi/web/forums/posts/" +
             this.$route.params.id +
             "/replies",
           data: data,
@@ -200,14 +200,14 @@ export default {
       };
       this.$axios({
         method: "POST",
-        url: "/codemaoapi/web/forums/replies/" + id + "/comments",
+        url: "/api/codemaoapi/web/forums/replies/" + id + "/comments",
         data: data,
       });
     },
   },
   created() {
     this.$axios(
-      "/codemaoapi/web/forums/posts/" + this.$route.params.id + "/details"
+      "/api/codemaoapi/web/forums/posts/" + this.$route.params.id + "/details"
     ).then((res) => {
       this.post = res.data;
       this.loading = false;
@@ -217,7 +217,7 @@ export default {
   watch: {
     "$route.params.id": function () {
       this.$axios(
-        "/codemaoapi/web/forums/posts/" + this.$route.params.id + "/details"
+        "/api/codemaoapi/web/forums/posts/" + this.$route.params.id + "/details"
       ).then((res) => {
         this.post = res.data;
       });

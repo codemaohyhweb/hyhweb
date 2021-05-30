@@ -69,7 +69,7 @@ export default {
             this.$axios({
               method: "POST",
               data: data,
-              url: "/api/post_err/add",
+              url: "/api/api/post_err/add",
             })
               .then((res) => {
                 console.log(res);

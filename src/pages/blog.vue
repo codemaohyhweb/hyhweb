@@ -109,7 +109,7 @@ export default {
       this.issearch = false;
       var _this = this;
       this.$axios({
-        url: "/api/blogs/items/" + page,
+        url: "/api/api/blogs/items/" + page,
         method: "GET",
       }).then(function (res) {
         _this.blogs = res.data;
@@ -128,7 +128,7 @@ export default {
       this.loading = false;
       var _this = this;
       this.$axios({
-        url: "/api/blogs/search/" + this.word + "/" + page,
+        url: "/api/api/blogs/search/" + this.word + "/" + page,
         method: "GET",
       }).then(function (res) {
         _this.blogs = res.data;

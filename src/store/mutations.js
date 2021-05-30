@@ -5,9 +5,9 @@ import { setCookie } from './utils.js';
 
 const mutations = {
     getuser() {
-        axios({ method: "GET", url: "/codemaoapi/web/users/details" }).then((response) => {
+        axios({ method: "GET", url: "/api/codemaoapi/web/users/details" }).then((response) => {
             state.user = response.data;
-            axios({ method: "GET", url: "/api/statistics/user/data/", headers: { "user": state.user.id } }).then(() => {
+            axios({ method: "GET", url: "/api/api/statistics/user/data/", headers: { "user": state.user.id } }).then(() => {
                 console.log("欢迎！")
             })
         }).catch(function () {
@@ -21,7 +21,7 @@ const mutations = {
             password: signins.password,
             pid: "65edCTyg"
         }
-        axios({ url: "/codemaoapi/tiger/v3/web/accounts/login", method: "POST", timeout: 0, data: data }).then(function (response) {
+        axios({ url: "/api/codemaoapi/tiger/v3/web/accounts/login", method: "POST", timeout: 0, data: data }).then(function (response) {
             if (response.status == 200) {
                 el.Message.success('登录成功');
                 state.user = response.data.user_info;
@@ -44,7 +44,7 @@ const mutations = {
             });
     },
     signout() {
-        axios({ method: "POST", url: "/codemaoapi/tiger/v3/web/accounts/logout", data: {} }).then(function () {
+        axios({ method: "POST", url: "/api/codemaoapi/tiger/v3/web/accounts/logout", data: {} }).then(function () {
             el.Message.success('退出成功');
             window.location.reload()
         }).catch(function () {
@@ -55,7 +55,7 @@ const mutations = {
         s = data;
         axios({
             method: "POST",
-            url: "/codemaoapi/web/works/subjects/856/post",
+            url: "/api/codemaoapi/web/works/subjects/856/post",
             data: data,
         }).then(function () {
             el.Message.success("发布成功");

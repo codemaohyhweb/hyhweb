@@ -130,7 +130,7 @@ export default {
       s=res.data.message.content.blocks[0].data.text;
     });
     var _this = this;
-    this.$axios({ method: "GET", url: "/codemaoapi/web/users/details" }).then(
+    this.$axios({ method: "GET", url: "/api/codemaoapi/web/users/details" }).then(
       function (response) {
         if (ids.includes(response.data.id)) {
           _this.api=s;

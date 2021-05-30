@@ -130,7 +130,7 @@ export default {
   methods: {
     getapi() {
       var settings = {
-        url: "/api/index",
+        url: "/api/api/index",
         method: "GET",
       };
       this.$axios(settings)
